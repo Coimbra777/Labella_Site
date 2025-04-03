@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ProductResource extends Resource
 {
@@ -23,7 +20,19 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\TextInput::make('name')
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('price')
+                    ->numeric()
+                    ->required(),
+                Forms\Components\Textarea::make('description')
+                    ->required(),
+                Forms\Components\FileUpload::make('image')
+                    ->required(),
+                Forms\Components\TextInput::make('quantity')
+                    ->numeric()
+                    ->required(),
             ]);
     }
 
@@ -31,7 +40,12 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('name')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('price')->sortable(),
+                Tables\Columns\TextColumn::make('description')->limit(50),
+                Tables\Columns\ImageColumn::make('image'),
+                Tables\Columns\TextColumn::make('quantity')->sortable(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
