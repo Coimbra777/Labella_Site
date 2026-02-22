@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class ProductResource extends Resource
@@ -119,16 +120,15 @@ class ProductResource extends Resource
 
                 Forms\Components\Section::make('Imagens')
                     ->schema([
-                        Forms\Components\Repeater::make('images')
-                            ->label('Imagens')
-                            ->schema([
-                                Forms\Components\TextInput::make('image')
-                                    ->label('URL da Imagem')
-                                    ->url()
-                                    ->maxLength(255),
-                            ])
-                            ->defaultItems(1)
-                            ->columnSpanFull(),
+                        Forms\Components\FileUpload::make('images')
+                            ->label('Imagens do Produto')
+                            ->image()
+                            ->multiple()
+                            ->directory('products')
+                            ->maxSize(5120)
+                            ->reorderable()
+                            ->columnSpanFull()
+                            ->helperText('Formatos: JPEG, PNG, GIF, WebP. Máximo 5MB por imagem.'),
                     ]),
 
                 Forms\Components\Section::make('Opções')
@@ -163,7 +163,8 @@ class ProductResource extends Resource
                     ->getStateUsing(function (Product $record) {
                         $images = $record->images;
                         if (is_array($images) && !empty($images)) {
-                            return $images[0];
+                            $path = $images[0];
+                            return str_starts_with($path, 'http') ? $path : Storage::disk('public')->url($path);
                         }
                         return null;
                     })

@@ -6,9 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    /**
+     * Transform product images to full URLs.
+     */
+    private function transformProductImages(Product $product): array
+    {
+        $data = $product->toArray();
+        $images = $product->images ?? [];
+
+        if (is_array($images) && !empty($images)) {
+            $data['images'] = array_map(function ($path) {
+                if (empty($path) || str_starts_with($path, 'http')) {
+                    return $path;
+                }
+                return Storage::disk('public')->url($path);
+            }, $images);
+            $data['main_image'] = $data['images'][0] ?? null;
+        } else {
+            $data['main_image'] = null;
+        }
+
+        return $data;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -39,9 +63,14 @@ class ProductController extends Controller
 
         // Pagination
         $perPage = $request->get('per_page', 12);
-        $products = $query->paginate($perPage);
+        $paginated = $query->paginate($perPage);
 
-        return response()->json($products);
+        // Transform products with full image URLs
+        $paginated->getCollection()->transform(function ($product) {
+            return $this->transformProductImages($product);
+        });
+
+        return response()->json($paginated);
     }
 
     /**
@@ -53,6 +82,6 @@ class ProductController extends Controller
             ->where('is_active', true)
             ->findOrFail($id);
 
-        return response()->json($product);
+        return response()->json($this->transformProductImages($product));
     }
 }
