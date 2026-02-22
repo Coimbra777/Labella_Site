@@ -1,5 +1,6 @@
 /**
  * Validação da página de confirmação de pedido
+ * Remove itens do carrinho quando o pedido é confirmado com sucesso
  */
 document.addEventListener("DOMContentLoaded", () => {
   const params = new URLSearchParams(window.location.search);
@@ -30,5 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
   } else {
     messageEl.textContent =
       "Seu pedido #" + orderNum + " foi registrado. Em breve entraremos em contato para confirmar o pagamento e envio.";
+
+    // Remove itens do carrinho após pedido confirmado
+    if (window.LabellaCart) {
+      window.LabellaCart.clearCart();
+    }
   }
 });

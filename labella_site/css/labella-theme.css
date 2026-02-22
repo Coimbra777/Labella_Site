@@ -57,6 +57,12 @@ html {
 .fix-menu-desktop .wrap-menu-desktop {
   background-color: #FCE4EC !important;
   border-color: #FCE4EC !important;
+  height: 95px !important;
+}
+
+.fix-menu-desktop .logo img {
+  max-height: 75px;
+  height: 75px;
 }
 
 .header-v3 .fix-menu-desktop .wrap-menu-desktop {
@@ -136,4 +142,35 @@ button.bg3.hov-btn3,
 /* Overlay escuro do carrinho - suavizar */
 .show-header-cart .s-full {
   background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Header mais alto para acomodar logo maior */
+.wrap-menu-desktop {
+  height: 130px !important;
+}
+
+/* Logo - bem maior e visível */
+.logo {
+  height: 100%;
+  min-height: 110px;
+  margin-left: 60px;
+  margin-right: 55px;
+}
+
+.logo img {
+  max-height: 115px;
+  height: 115px;
+  min-width: 180px;
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Logo mobile - bem visível */
+.logo-mobile img {
+  max-height: 100px;
+  max-width: 360px;
+  min-width: 200px;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }

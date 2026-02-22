@@ -167,6 +167,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               </div>
             </div>
 
+            <!-- Favoritos - implementar futuramente
             <div class="flex-w flex-m p-l-100 p-t-40 respon7">
               <div class="flex-m bor9 p-r-10 m-r-11">
                 <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Adicionar aos Favoritos">
@@ -174,6 +175,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 </a>
               </div>
             </div>
+            -->
           </div>
         </div>
       </div>
@@ -273,16 +275,16 @@ document.addEventListener("DOMContentLoaded", async () => {
       });
     }
 
-    // Wishlist (placeholder)
-    const wishBtn = contentEl.querySelector(".js-addwish-detail");
-    if (wishBtn) {
-      wishBtn.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (typeof swal !== "undefined") {
-          swal(produto.name, "Adicionado aos favoritos!", "success");
-        }
-      });
-    }
+    // Favoritos - implementar futuramente
+    // const wishBtn = contentEl.querySelector(".js-addwish-detail");
+    // if (wishBtn) {
+    //   wishBtn.addEventListener("click", (e) => {
+    //     e.preventDefault();
+    //     if (typeof swal !== "undefined") {
+    //       swal(produto.name, "Adicionado aos favoritos!", "success");
+    //     }
+    //   });
+    // }
   } catch (err) {
     console.error("Erro ao carregar produto:", err);
     loadingEl.style.display = "none";

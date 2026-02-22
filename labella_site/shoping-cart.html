@@ -88,8 +88,8 @@
         <div class="wrap-menu-desktop how-shadow1">
           <nav class="limiter-menu-desktop container">
             <!-- Logo desktop -->
-            <a href="#" class="logo">
-              <img src="images/icons/logo-01.png" alt="IMG-LOGO" />
+            <a href="index.html" class="logo">
+              <img src="images/icons/logo-01.png" alt="La Bella" />
             </a>
 
             <!-- Menu desktop -->
@@ -119,13 +119,11 @@
 
             <!-- Icon header -->
             <div class="wrap-icon-header flex-w flex-r-m">
-              <a
-                href="#"
-                class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                data-notify="0"
-              >
+              <!-- Favoritos - implementar futuramente
+              <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="0">
                 <i class="zmdi zmdi-favorite-outline"></i>
               </a>
+              -->
             </div>
           </nav>
         </div>
@@ -136,18 +134,16 @@
         <!-- Logo moblie -->
         <div class="logo-mobile">
           <a href="index.html"
-            ><img src="images/icons/logo-01.png" alt="IMG-LOGO"
+            ><img src="images/icons/logo-01.png" alt="La Bella"
           /></a>
         </div>
         <!-- Icon header -->
         <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-          <a
-            href="#"
-            class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-            data-notify="0"
-          >
+          <!-- Favoritos - implementar futuramente
+          <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti" data-notify="0">
             <i class="zmdi zmdi-favorite-outline"></i>
           </a>
+          -->
         </div>
 
         <!-- Button show menu -->
@@ -223,6 +219,7 @@
                       <th class="column-3">Preço</th>
                       <th class="column-4">Quantidade</th>
                       <th class="column-5">Total</th>
+                      <th class="column-6"></th>
                     </tr>
                   </thead>
                   <tbody id="cart-table-body">
@@ -295,6 +292,7 @@
                 </table>
               </div>
 
+              <!-- Cupom - usar futuramente
               <div
                 class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm"
               >
@@ -313,12 +311,8 @@
                   </div>
                 </div>
 
-                <div
-                  class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10"
-                >
-                  Atualizar Carrinho
-                </div>
               </div>
+              -->
             </div>
           </div>
 
@@ -487,22 +481,18 @@
           <div class="col-sm-6 col-lg-3 p-b-50">
             <h4 class="stext-301 cl0 p-b-30">ENTRE EM CONTATO</h4>
 
-            <p class="stext-107 cl7 size-201">
-              Alguma dúvida? Fale com a gente pelo Instagram
-              <strong>@seuusuario</strong> ou no WhatsApp
-              <strong>(+55) 96 716 6879</strong>.
-            </p>
+            <p class="stext-107 cl7 size-201" data-labella-contact-text></p>
 
             <div class="p-t-27">
-              <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+              <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16" data-labella-facebook-link>
                 <i class="fa fa-facebook"></i>
               </a>
 
-              <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+              <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16" data-labella-instagram-link>
                 <i class="fa fa-instagram"></i>
               </a>
 
-              <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16">
+              <a href="#" class="fs-18 cl7 hov-cl1 trans-04 m-r-16" data-labella-pinterest-link>
                 <i class="fa fa-pinterest-p"></i>
               </a>
             </div>
@@ -534,26 +524,12 @@
         </div>
 
         <div class="p-t-40">
-          <div class="flex-c-m flex-w p-b-18">
-            <a href="#" class="m-all-1">
-              <img src="images/icons/icon-pay-01.png" alt="ICON-PAY" />
-            </a>
-
-            <a href="#" class="m-all-1">
-              <img src="images/icons/icon-pay-02.png" alt="ICON-PAY" />
-            </a>
-
-            <a href="#" class="m-all-1">
-              <img src="images/icons/icon-pay-03.png" alt="ICON-PAY" />
-            </a>
-
-            <a href="#" class="m-all-1">
-              <img src="images/icons/icon-pay-04.png" alt="ICON-PAY" />
-            </a>
-
-            <a href="#" class="m-all-1">
-              <img src="images/icons/icon-pay-05.png" alt="ICON-PAY" />
-            </a>
+          <div class="flex-c-m flex-w p-b-18" id="labella-payment-icons">
+            <a href="#" class="m-all-1"><img src="images/icons/icon-pay-01.png" alt="Visa" /></a>
+            <a href="#" class="m-all-1"><img src="images/icons/icon-pay-02.png" alt="Mastercard" /></a>
+            <a href="#" class="m-all-1"><img src="images/icons/icon-pay-03.png" alt="Amex" /></a>
+            <a href="#" class="m-all-1"><img src="images/icons/icon-pay-04.png" alt="PayPal" /></a>
+            <a href="#" class="m-all-1"><img src="images/icons/icon-pay-05.png" alt="PIX" /></a>
           </div>
 
           <p class="stext-107 cl6 txt-center">
@@ -622,6 +598,7 @@
     <!--===============================================================================================-->
     <script src="vendor/sweetalert/sweetalert.min.js"></script>
     <script src="js/config.js"></script>
+    <script src="js/site-config.js"></script>
     <script src="js/checkout-validation.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/cart-page.js"></script>

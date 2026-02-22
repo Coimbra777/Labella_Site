@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (cart.length === 0) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="5" class="p-t-20 p-b-20 stext-108 cl6 txt-center">Carrinho vazio. <a href="product.html" class="hov-cl1">Ver produtos</a></td>
+          <td colspan="6" class="p-t-20 p-b-20 stext-108 cl6 txt-center">Carrinho vazio. <a href="product.html" class="hov-cl1">Ver produtos</a></td>
         </tr>
       `;
     } else {
@@ -41,11 +41,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
               </td>
               <td class="column-5">R$ ${itemTotal}</td>
+              <td class="column-6">
+                <button type="button" class="cart-remove-item stext-108 cl6 hov-cl1 p-t-4 p-b-4" data-id="${item.product_id}" title="Remover">
+                  <i class="zmdi zmdi-delete"></i> Remover
+                </button>
+              </td>
             </tr>
           `;
           }
         )
         .join("");
+
+      tbody.querySelectorAll(".cart-remove-item").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          window.LabellaCart?.removeItem(parseInt(btn.dataset.id));
+        });
+      });
 
       tbody.querySelectorAll(".btn-num-product-down").forEach((btn) => {
         btn.addEventListener("click", () => {
