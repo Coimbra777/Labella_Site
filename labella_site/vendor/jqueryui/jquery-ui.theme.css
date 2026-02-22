@@ -33,7 +33,7 @@
 }
 .ui-widget-content {
 	border: 1px solid #dddddd;
-	background: #ffffff;
+	background: #FCE4EC;
 	color: #333333;
 }
 .ui-widget-content a {
@@ -119,7 +119,7 @@ a.ui-button:active,
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
 	border: #003eff;
-	background-color: #ffffff;
+	background-color: #FCE4EC;
 }
 .ui-state-active a,
 .ui-state-active a:link,

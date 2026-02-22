@@ -12,6 +12,7 @@
     <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css" />
     <link rel="stylesheet" type="text/css" href="css/util.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="css/labella-theme.css" />
   </head>
   <body class="animsition">
     <header class="header-v4">
@@ -59,14 +60,7 @@
 
     <script src="js/config.js"></script>
     <script src="js/cart.js"></script>
-    <script>
-      const params = new URLSearchParams(window.location.search);
-      const orderNum = params.get("order");
-      if (orderNum) {
-        document.getElementById("order-message").textContent =
-          "Seu pedido #" + orderNum + " foi registrado. Em breve entraremos em contato para confirmar o pagamento e envio.";
-      }
-    </script>
+    <script src="js/order-confirmation.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

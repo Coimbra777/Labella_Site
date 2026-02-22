@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", async () => {
-  const API_BASE = typeof LABELLA_CONFIG !== "undefined" ? LABELLA_CONFIG.API_BASE_URL : "http://localhost:8000";
+  const API_BASE =
+    typeof LABELLA_CONFIG !== "undefined"
+      ? LABELLA_CONFIG.API_BASE_URL
+      : "http://localhost:8000";
   const container = document.querySelector("#produtos-container");
   const btnCarregar = document.querySelector("#btn-carregar");
   const filterContainer = document.getElementById("filter-categorias");
@@ -13,9 +16,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       const res = await fetch(`${API_BASE}/api/v1/categories`);
       if (!res.ok) return;
       const categorias = await res.json();
-      let html = "<button class=\"stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1\" data-filter=\"*\">Todos</button>";
+      let html =
+        '<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">Todos</button>';
       categorias.forEach((cat) => {
-        const slug = cat.slug || (cat.name || "").toLowerCase().replace(/\s+/g, "-") || "";
+        const slug =
+          cat.slug || (cat.name || "").toLowerCase().replace(/\s+/g, "-") || "";
         const nome = cat.name || "Categoria";
         html += `<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".${slug}">${nome}</button>`;
       });
@@ -39,11 +44,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       const produtos = json.data || json;
 
       produtos.forEach((produto) => {
-        let imagem = produto.main_image || produto.images?.[0] || "images/placeholder.png";
+        let imagem =
+          produto.main_image || produto.images?.[0] || "images/placeholder.png";
         if (imagem && imagem.startsWith("/") && !imagem.startsWith("//")) {
           imagem = API_BASE + imagem;
         }
-        const categoriaSlug = produto.category?.slug || produto.category?.name || "";
+        const categoriaSlug =
+          produto.category?.slug || produto.category?.name || "";
         const preco = parseFloat(produto.price) || 0;
         const produtoUrl = `product-detail.html?id=${produto.id}`;
 
@@ -76,7 +83,13 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         const addBtn = item.querySelector(".btn-addcart-b2");
         if (addBtn && window.LabellaCart) {
-          const prod = { id: produto.id, name: produto.name, price: produto.price, main_image: produto.main_image, images: produto.images };
+          const prod = {
+            id: produto.id,
+            name: produto.name,
+            price: produto.price,
+            main_image: produto.main_image,
+            images: produto.images,
+          };
           addBtn.addEventListener("click", (e) => {
             e.preventDefault();
             window.LabellaCart.addItem(prod);
@@ -107,7 +120,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   function bindFiltros() {
-    const botoesFiltro = document.querySelectorAll("#filter-categorias [data-filter]");
+    const botoesFiltro = document.querySelectorAll(
+      "#filter-categorias [data-filter]",
+    );
     botoesFiltro.forEach((btn) => {
       btn.addEventListener("click", function () {
         const filtro = this.getAttribute("data-filter");

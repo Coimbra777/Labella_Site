@@ -45,11 +45,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   btnFinalizar.addEventListener("click", async () => {
     hideFormErrors();
+    if (typeof CHECKOUT_VALIDATION !== "undefined") CHECKOUT_VALIDATION.clearErrors();
 
     const cart = window.LabellaCart?.getCart() || [];
     if (cart.length === 0) {
       showFormErrors(["Seu carrinho está vazio. Adicione produtos antes de finalizar."]);
       return;
+    }
+
+    if (typeof CHECKOUT_VALIDATION !== "undefined") {
+      const validationErrors = CHECKOUT_VALIDATION.validateAll();
+      if (validationErrors.length > 0) {
+        showFormErrors(validationErrors);
+        return;
+      }
     }
 
     const customer_name = getField("customer_name");

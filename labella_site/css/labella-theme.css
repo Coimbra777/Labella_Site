@@ -1,0 +1,139 @@
+/**
+ * Labella Theme - Variáveis e override de cores
+ * Primary: #FF008C (magenta) | Header/Footer: cor primária
+ */
+:root {
+  --c-500: 255, 0, 140;
+  --tw-bg-opacity: 1;
+}
+
+/* Override global - fundo rosa claro */
+body,
+html {
+  background-color: #FCE4EC !important;
+}
+
+/* Botões - usa variável CSS */
+.bg1,
+.hov-bg1:hover,
+.hov-btn3:hover,
+.hov-btn3:hover i {
+  background-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+}
+
+.hov-btn3:hover {
+  border-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+}
+
+/* Header - cor primária */
+.top-bar {
+  background-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.left-top-bar,
+.right-top-bar a {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.right-top-bar a {
+  border-right-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.right-top-bar a:first-child {
+  border-left-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.right-top-bar a:hover {
+  color: #fff !important;
+}
+
+.topbar-mobile li {
+  background-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+  border-top-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Fix menu (scroll) - tema rosa/magenta */
+.fix-menu-desktop .wrap-menu-desktop {
+  background-color: #FCE4EC !important;
+  border-color: #FCE4EC !important;
+}
+
+.header-v3 .fix-menu-desktop .wrap-menu-desktop {
+  background-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+  border-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+}
+
+.header-v4 .fix-menu-desktop.container-menu-desktop {
+  background-color: #FCE4EC !important;
+  border-color: #FCE4EC !important;
+}
+
+/* Hamburger (menu mobile) - cor primária em vez de preto */
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+  background-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+}
+
+/* Footer - cor primária */
+footer.bg3 {
+  background-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+}
+
+/* Footer - texto claro sobre fundo primário */
+footer.bg3 .stext-301,
+footer.bg3 .stext-301.cl0 {
+  color: rgba(255, 255, 255, 0.95) !important;
+}
+
+footer.bg3 .stext-107,
+footer.bg3 .cl7,
+footer.bg3 input::placeholder {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+footer.bg3 a.hov-cl1:hover,
+footer.bg3 .hov-cl1:hover {
+  color: #fff !important;
+}
+
+footer.bg3 input.input1 {
+  color: #fff !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+footer.bg3 .focus-input1::after {
+  background-color: #FCE4EC !important;
+}
+
+footer.bg3 .bg1.hov-btn2 {
+  background-color: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.5) !important;
+  color: #fff !important;
+}
+
+footer.bg3 .bg1.hov-btn2:hover {
+  background-color: #FCE4EC !important;
+  color: rgba(var(--c-500), 1) !important;
+  border-color: #fff !important;
+}
+
+/* Botões de ação (Ver Carrinho, Finalizar Compra, etc.) - cor primária */
+a.bg3.hov-btn3,
+button.bg3.hov-btn3,
+.bg3.bor2.hov-btn3,
+.bg3.bor14.hov-btn3 {
+  background-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+}
+
+/* Hover botão primário - remove preto */
+.hov-btn1:hover {
+  border-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+  background-color: rgba(var(--c-500), var(--tw-bg-opacity, 1)) !important;
+}
+
+/* Overlay escuro do carrinho - suavizar */
+.show-header-cart .s-full {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
