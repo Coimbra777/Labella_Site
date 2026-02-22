@@ -26,7 +26,7 @@ class OrderController extends Controller
             'shipping_city' => 'required|string|max:255',
             'shipping_state' => 'required|string|max:255',
             'shipping_zip' => 'required|string|max:20',
-            'shipping_country' => 'nullable|string|max:2|default:BR',
+            'shipping_country' => 'nullable|string|max:2',
             'items' => 'required|array|min:1',
             'items.*.product_id' => 'required|exists:products,id',
             'items.*.quantity' => 'required|integer|min:1',
@@ -36,11 +36,26 @@ class OrderController extends Controller
             'discount' => 'nullable|numeric|min:0',
             'payment_method' => 'nullable|string|max:255',
             'notes' => 'nullable|string',
+        ], [
+            'customer_name.required' => 'O nome completo é obrigatório.',
+            'customer_email.required' => 'O e-mail é obrigatório.',
+            'customer_email.email' => 'Informe um e-mail válido.',
+            'shipping_address.required' => 'O endereço de entrega é obrigatório.',
+            'shipping_city.required' => 'A cidade é obrigatória.',
+            'shipping_state.required' => 'O estado é obrigatório.',
+            'shipping_zip.required' => 'O CEP é obrigatório.',
+            'items.required' => 'O carrinho está vazio. Adicione produtos antes de finalizar.',
+            'items.min' => 'O carrinho está vazio. Adicione produtos antes de finalizar.',
+            'items.*.product_id.required' => 'Produto inválido no carrinho.',
+            'items.*.product_id.exists' => 'Um ou mais produtos não foram encontrados.',
+            'items.*.quantity.required' => 'Informe a quantidade do produto.',
+            'items.*.quantity.integer' => 'A quantidade deve ser um número inteiro.',
+            'items.*.quantity.min' => 'A quantidade mínima é 1.',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'Validation error',
+                'message' => 'Verifique os dados do formulário.',
                 'errors' => $validator->errors()
             ], 422);
         }

@@ -212,14 +212,16 @@
             <div class="m-l-25 m-r--38 m-lr-0-xl">
               <div class="wrap-table-shopping-cart">
                 <table class="table-shopping-cart">
-                  <tr class="table_head">
-                    <th class="column-1">Produto</th>
-                    <th class="column-2"></th>
-                    <th class="column-3">Preço</th>
-                    <th class="column-4">Quantidade</th>
-                    <th class="column-5">Total</th>
-                  </tr>
-
+                  <thead>
+                    <tr class="table_head">
+                      <th class="column-1">Produto</th>
+                      <th class="column-2"></th>
+                      <th class="column-3">Preço</th>
+                      <th class="column-4">Quantidade</th>
+                      <th class="column-5">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody id="cart-table-body">
                   <tr class="table_row">
                     <td class="column-1">
                       <div class="how-itemcart1">
@@ -285,6 +287,7 @@
                     </td>
                     <td class="column-5">$ 16.00</td>
                   </tr>
+                  </tbody>
                 </table>
               </div>
 
@@ -319,7 +322,57 @@
             <div
               class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm"
             >
-              <h4 class="mtext-109 cl2 p-b-30">Totais do Carrinho</h4>
+              <h4 class="mtext-109 cl2 p-b-30">Dados para entrega</h4>
+
+              <div id="checkout-errors" class="bor8 bg0 m-b-20 p-lr-15 p-tb-15" style="display:none; border-color: #e74c3c !important; background: #fdf2f2;">
+                <ul id="checkout-errors-list" class="stext-111 cl6 p-l-20" style="margin:0; list-style:disc;"></ul>
+              </div>
+
+              <div class="bor8 bg0 m-b-12">
+                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="customer_name" name="customer_name" placeholder="Nome completo" required />
+              </div>
+              <div class="bor8 bg0 m-b-12">
+                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" id="customer_email" name="customer_email" placeholder="Email" required />
+              </div>
+              <div class="bor8 bg0 m-b-12">
+                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="tel" id="customer_phone" name="customer_phone" placeholder="Telefone" />
+              </div>
+              <div class="bor8 bg0 m-b-12">
+                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="shipping_address" name="shipping_address" placeholder="Endereço completo" required />
+              </div>
+              <div class="flex-w flex-sb-m m-b-12">
+                <div class="bor8 bg0 m-b-12 m-r-10" style="flex:1">
+                  <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="shipping_city" name="shipping_city" placeholder="Cidade" required />
+                </div>
+                <div class="bor8 bg0 m-b-12 m-r-10" style="flex:1">
+                  <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="shipping_state" name="shipping_state" placeholder="Estado" required />
+                </div>
+              </div>
+              <div class="bor8 bg0 m-b-12">
+                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="shipping_zip" name="shipping_zip" placeholder="CEP" required />
+              </div>
+              <div class="bor8 bg0 m-b-12">
+                <select class="stext-111 cl8 plh3 size-111 p-lr-15" id="shipping_country" name="shipping_country">
+                  <option value="BR">Brasil</option>
+                  <option value="PT">Portugal</option>
+                  <option value="US">Estados Unidos</option>
+                  <option value="GB">Reino Unido</option>
+                </select>
+              </div>
+              <div class="bor8 bg0 m-b-12">
+                <select class="stext-111 cl8 plh3 size-111 p-lr-15" id="payment_method" name="payment_method">
+                  <option value="">Forma de pagamento</option>
+                  <option value="pix">PIX</option>
+                  <option value="cartao">Cartão de crédito</option>
+                  <option value="boleto">Boleto</option>
+                  <option value="transferencia">Transferência</option>
+                </select>
+              </div>
+              <div class="bor8 bg0 m-b-22">
+                <textarea class="stext-111 cl8 plh3 size-111 p-lr-15" id="notes" name="notes" rows="2" placeholder="Observações"></textarea>
+              </div>
+
+              <h4 class="mtext-109 cl2 p-b-30 p-t-20">Totais do Carrinho</h4>
 
               <div class="flex-w flex-t bor12 p-b-13">
                 <div class="size-208">
@@ -327,62 +380,16 @@
                 </div>
 
                 <div class="size-209">
-                  <span class="mtext-110 cl2"> $79.65 </span>
+                  <span id="cart-subtotal" class="mtext-110 cl2"> R$ 0,00 </span>
                 </div>
               </div>
 
-              <div class="flex-w flex-t bor12 p-t-15 p-b-30">
-                <div class="size-208 w-full-ssm">
+              <div class="flex-w flex-t bor12 p-t-15 p-b-13">
+                <div class="size-208">
                   <span class="stext-110 cl2"> Frete: </span>
                 </div>
-
-                <div class="size-209 p-r-18 p-r-0-sm w-full-ssm">
-                  <p class="stext-111 cl6 p-t-2">
-                    Nenhuma opção de frete disponível no momento. Por favor,
-                    verifique seu endereço ou entre em contato conosco se
-                    precisar de ajuda.
-                  </p>
-
-                  <div class="p-t-15">
-                    <span class="stext-112 cl8"> Calcular Frete </span>
-
-                    <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                      <select class="js-select2" name="time">
-                        <option>Selecione um país...</option>
-                        <option>Brasil</option>
-                        <option>Portugal</option>
-                        <option>USA</option>
-                        <option>Reino Unido</option>
-                      </select>
-                      <div class="dropDownSelect2"></div>
-                    </div>
-
-                    <div class="bor8 bg0 m-b-12">
-                      <input
-                        class="stext-111 cl8 plh3 size-111 p-lr-15"
-                        type="text"
-                        name="state"
-                        placeholder="Estado / País"
-                      />
-                    </div>
-
-                    <div class="bor8 bg0 m-b-22">
-                      <input
-                        class="stext-111 cl8 plh3 size-111 p-lr-15"
-                        type="text"
-                        name="postcode"
-                        placeholder="CEP / Código Postal"
-                      />
-                    </div>
-
-                    <div class="flex-w">
-                      <div
-                        class="flex-c-m stext-101 cl2 size-115 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer"
-                      >
-                        Atualizar Totais
-                      </div>
-                    </div>
-                  </div>
+                <div class="size-209">
+                  <span class="mtext-110 cl2"> A calcular </span>
                 </div>
               </div>
 
@@ -392,11 +399,13 @@
                 </div>
 
                 <div class="size-209 p-t-1">
-                  <span class="mtext-110 cl2"> $79.65 </span>
+                  <span id="cart-total" class="mtext-110 cl2"> R$ 0,00 </span>
                 </div>
               </div>
 
               <button
+                type="button"
+                id="btn-finalizar"
                 class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer"
               >
                 Finalizar Compra
@@ -607,6 +616,11 @@
       });
     </script>
     <!--===============================================================================================-->
+    <script src="vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/cart.js"></script>
+    <script src="js/cart-page.js"></script>
+    <script src="js/checkout.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
