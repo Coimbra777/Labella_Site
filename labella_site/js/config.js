@@ -25,6 +25,11 @@ const LABELLA_SITE_CONFIG = {
     instagram: "https://instagram.com/labella",
     pinterest: "",
   },
+  cities: [
+    { value: "sao-luis", label: "São Luís" },
+    { value: "imperatriz", label: "Imperatriz" },
+    { value: "caxias", label: "Caxias" },
+  ],
   paymentMethods: [
     { value: "pix", label: "PIX" },
     { value: "cartao", label: "Cartão de crédito" },

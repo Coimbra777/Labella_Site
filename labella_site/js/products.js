@@ -5,10 +5,15 @@ document.addEventListener("DOMContentLoaded", async () => {
       : "http://localhost:8000";
   const container = document.querySelector("#produtos-container");
   const btnCarregar = document.querySelector("#btn-carregar");
+  const btnCarregarWrap = document.querySelector("#btn-carregar-wrap");
   const filterContainer = document.getElementById("filter-categorias");
   let paginaAtual = 1;
-  const porPagina = 8; // quantidade por página
+  const porPagina = 8;
+  const minProdutosParaBotao = 16; // só mostra botão se tiver bastante produtos
   let isotope;
+  let temMaisPaginas = false;
+  let totalProdutos = 0;
+  let carregando = false;
 
   async function carregarCategorias() {
     if (!filterContainer) return;
@@ -31,7 +36,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   }
 
   async function carregarProdutos(pagina = 1) {
-    if (!container) return;
+    if (!container || carregando) return;
+    carregando = true;
+    if (btnCarregarWrap) btnCarregarWrap.classList.add("loading");
     try {
       const apiUrl = `${API_BASE}/api/v1/products?page=${pagina}&per_page=${porPagina}`;
       const res = await fetch(apiUrl);
@@ -42,6 +49,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const json = await res.json();
       const produtos = json.data || json;
+      const lastPage = json.last_page ?? 1;
+      const currentPage = json.current_page ?? pagina;
+      totalProdutos = json.total ?? totalProdutos + produtos.length;
+      temMaisPaginas = currentPage < lastPage;
 
       produtos.forEach((produto) => {
         let imagem =
@@ -114,9 +125,35 @@ document.addEventListener("DOMContentLoaded", async () => {
         isotope.reloadItems();
         isotope.arrange();
       }
+
+      // Atualiza visibilidade do botão: só mostra se tiver bastante produtos e mais páginas
+      if (btnCarregarWrap) {
+        if (temMaisPaginas && totalProdutos >= minProdutosParaBotao) {
+          btnCarregarWrap.style.display = "";
+        } else {
+          btnCarregarWrap.style.display = "none";
+        }
+      }
     } catch (error) {
       console.error("Erro ao carregar produtos:", error);
+    } finally {
+      carregando = false;
+      if (btnCarregarWrap) btnCarregarWrap.classList.remove("loading");
     }
+  }
+
+  function setupInfiniteScroll() {
+    const threshold = 300;
+    window.addEventListener("scroll", () => {
+      if (!temMaisPaginas || carregando) return;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const docHeight = document.documentElement.scrollHeight;
+      if (scrollTop + windowHeight >= docHeight - threshold) {
+        paginaAtual++;
+        carregarProdutos(paginaAtual);
+      }
+    });
   }
 
   function bindFiltros() {
@@ -136,10 +173,13 @@ document.addEventListener("DOMContentLoaded", async () => {
   await carregarCategorias();
   await carregarProdutos(paginaAtual);
   bindFiltros();
+  setupInfiniteScroll();
 
   btnCarregar?.addEventListener("click", (e) => {
     e.preventDefault();
-    paginaAtual++;
-    carregarProdutos(paginaAtual);
+    if (temMaisPaginas && !carregando) {
+      paginaAtual++;
+      carregarProdutos(paginaAtual);
+    }
   });
 });

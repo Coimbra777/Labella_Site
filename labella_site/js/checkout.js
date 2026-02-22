@@ -62,13 +62,8 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const customer_name = getField("customer_name");
-    const customer_email = getField("customer_email");
     const customer_phone = getField("customer_phone");
-    const shipping_address = getField("shipping_address");
     const shipping_city = getField("shipping_city");
-    const shipping_state = getField("shipping_state");
-    const shipping_zip = getField("shipping_zip");
-    const shipping_country = getField("shipping_country") || "BR";
     const payment_method = getField("payment_method");
     const notes = getField("notes");
 
@@ -81,13 +76,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const payload = {
       customer_name,
-      customer_email,
+      customer_email: null,
       customer_phone: customer_phone || null,
-      shipping_address,
       shipping_city,
-      shipping_state,
-      shipping_zip,
-      shipping_country,
       items,
       shipping_cost: 0,
       discount: 0,

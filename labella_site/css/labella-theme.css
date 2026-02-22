@@ -53,16 +53,20 @@ html {
   border-top-color: rgba(255, 255, 255, 0.2) !important;
 }
 
-/* Fix menu (scroll) - tema rosa/magenta */
+/* Fix menu (scroll) - tema rosa/magenta, menu compacto */
 .fix-menu-desktop .wrap-menu-desktop {
   background-color: #FCE4EC !important;
   border-color: #FCE4EC !important;
-  height: 95px !important;
+  height: 75px !important;
+}
+
+.fix-menu-desktop .logo {
+  z-index: 1200;
 }
 
 .fix-menu-desktop .logo img {
-  max-height: 75px;
-  height: 75px;
+  max-height: 95px;
+  height: 95px;
 }
 
 .header-v3 .fix-menu-desktop .wrap-menu-desktop {
@@ -144,23 +148,34 @@ button.bg3.hov-btn3,
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
-/* Header mais alto para acomodar logo maior */
+/* Menu mais compacto - permite logo vazar */
 .wrap-menu-desktop {
-  height: 130px !important;
+  height: 90px !important;
+  overflow: visible !important;
 }
 
-/* Logo - bem maior e visível */
+.limiter-menu-desktop {
+  overflow: visible !important;
+}
+
+.main-menu > li {
+  padding: 12px 10px 12px 0 !important;
+}
+
+/* Logo - maior, pode vazar do menu, z-index acima */
 .logo {
-  height: 100%;
-  min-height: 110px;
+  position: relative;
+  z-index: 1200;
+  height: auto;
   margin-left: 60px;
   margin-right: 55px;
+  overflow: visible;
 }
 
 .logo img {
-  max-height: 115px;
-  height: 115px;
-  min-width: 180px;
+  max-height: 150px;
+  height: 150px;
+  min-width: 220px;
   width: auto;
   object-fit: contain;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));

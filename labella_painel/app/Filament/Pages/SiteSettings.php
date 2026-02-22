@@ -40,6 +40,7 @@ class SiteSettings extends Page implements HasForms
         $this->form->fill([
             'contact' => $settings['contact'] ?? [],
             'social' => $settings['social'] ?? [],
+            'cities' => $settings['cities'] ?? [],
             'payment_methods' => $settings['payment_methods'] ?? [],
             'payment_icons' => $settings['payment_icons'] ?? [],
         ]);
@@ -85,6 +86,29 @@ class SiteSettings extends Page implements HasForms
                                             ->placeholder('São Paulo, SP - Brasil')
                                             ->maxLength(255),
                                     ])->columns(2),
+                            ]),
+                        Tabs\Tab::make('Cidades')
+                            ->icon('heroicon-o-map-pin')
+                            ->schema([
+                                Section::make('Cidades de Entrega')
+                                    ->description('Cidades disponíveis no checkout (select)')
+                                    ->schema([
+                                        Repeater::make('cities')
+                                            ->label('Cidades')
+                                            ->schema([
+                                                TextInput::make('value')
+                                                    ->label('Valor (ID)')
+                                                    ->required()
+                                                    ->placeholder('sao-luis'),
+                                                TextInput::make('label')
+                                                    ->label('Rótulo')
+                                                    ->required()
+                                                    ->placeholder('São Luís'),
+                                            ])
+                                            ->columns(2)
+                                            ->defaultItems(0)
+                                            ->addActionLabel('Adicionar cidade'),
+                                    ]),
                             ]),
                         Tabs\Tab::make('Redes Sociais')
                             ->icon('heroicon-o-share')
@@ -166,6 +190,7 @@ class SiteSettings extends Page implements HasForms
         $record->settings = [
             'contact' => $data['contact'] ?? [],
             'social' => $data['social'] ?? [],
+            'cities' => $data['cities'] ?? [],
             'payment_methods' => $data['payment_methods'] ?? [],
             'payment_icons' => $data['payment_icons'] ?? [],
         ];

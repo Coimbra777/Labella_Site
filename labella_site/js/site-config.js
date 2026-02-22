@@ -9,6 +9,7 @@
   function apply(C) {
     const contact = (C && C.contact) || FALLBACK.contact || {};
     const social = (C && C.social) || FALLBACK.social || {};
+    const cities = (C && C.cities) || FALLBACK.cities || [];
     const paymentMethods = (C && C.paymentMethods) || FALLBACK.paymentMethods || [];
     const paymentIcons = (C && C.paymentIcons) || FALLBACK.paymentIcons || [];
     // Texto de contato no footer (Instagram + WhatsApp)
@@ -75,15 +76,39 @@
       el.href = contact.email ? "mailto:" + contact.email : "#";
     });
 
-    // Container de ícones de pagamento
+    // Lista de formas de pagamento (order-confirmation e outras páginas)
+    document.querySelectorAll("[data-labella-payment-methods-list]").forEach((el) => {
+      if (paymentMethods.length) {
+        el.textContent = paymentMethods.map((m) => m.label).join(", ");
+      }
+    });
+    const paymentMethodsContainer = document.getElementById("labella-payment-methods");
+    if (paymentMethodsContainer && paymentMethods.length) {
+      paymentMethodsContainer.style.display = "block";
+    }
+
+    // Container de ícones de pagamento (usa config do painel)
     const payContainer = document.getElementById("labella-payment-icons");
-    if (payContainer && paymentIcons.length) {
+    if (payContainer) {
       payContainer.innerHTML = paymentIcons
         .map(
           (p) =>
             `<a href="#" class="m-all-1" title="${p.alt}"><img src="${p.src}" alt="${p.alt}" /></a>`
         )
         .join("");
+    }
+
+    // Select de cidades
+    const citySelect = document.getElementById("shipping_city");
+    if (citySelect && cities.length) {
+      const first = citySelect.querySelector("option[value='']");
+      citySelect.innerHTML = first ? first.outerHTML : '<option value="">Selecione a cidade</option>';
+      cities.forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c.value;
+        opt.textContent = c.label;
+        citySelect.appendChild(opt);
+      });
     }
 
     // Select de formas de pagamento

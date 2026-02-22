@@ -57,7 +57,6 @@ class OrderResource extends Resource
                     ->schema([
                         Forms\Components\Textarea::make('shipping_address')
                             ->label('Endereço')
-                            ->required()
                             ->rows(2)
                             ->columnSpanFull(),
 
@@ -68,12 +67,10 @@ class OrderResource extends Resource
 
                         Forms\Components\TextInput::make('shipping_state')
                             ->label('Estado')
-                            ->required()
                             ->maxLength(255),
 
                         Forms\Components\TextInput::make('shipping_zip')
                             ->label('CEP')
-                            ->required()
                             ->maxLength(20),
 
                         Forms\Components\TextInput::make('shipping_country')

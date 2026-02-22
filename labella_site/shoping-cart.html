@@ -103,7 +103,7 @@
                   <a href="product.html">Produtos</a>
                 </li>
 
-                <li class="label1" data-label1="hot">
+                <li>
                   <a href="shoping-cart.html">Carrinho</a>
                 </li>
 
@@ -176,7 +176,7 @@
           </li>
 
           <li>
-            <a href="shoping-cart.html" class="label1 rs1" data-label1="hot"
+            <a href="shoping-cart.html"
               >Carrinho</a
             >
           </li>
@@ -327,43 +327,19 @@
               </div>
 
               <div class="bor8 bg0 m-b-12">
-                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="customer_name" name="customer_name" placeholder="Nome completo" required />
+                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="customer_name" name="customer_name" placeholder="Nome" required />
               </div>
               <div class="bor8 bg0 m-b-12">
-                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="email" id="customer_email" name="customer_email" placeholder="Email" required />
+                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="tel" id="customer_phone" name="customer_phone" placeholder="(00) 00000-0000" maxlength="15" required />
               </div>
               <div class="bor8 bg0 m-b-12">
-                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="tel" id="customer_phone" name="customer_phone" placeholder="Telefone" />
-              </div>
-              <div class="bor8 bg0 m-b-12">
-                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="shipping_address" name="shipping_address" placeholder="Endereço completo" required />
-              </div>
-              <div class="flex-w flex-sb-m m-b-12">
-                <div class="bor8 bg0 m-b-12 m-r-10" style="flex:1">
-                  <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="shipping_city" name="shipping_city" placeholder="Cidade" required />
-                </div>
-                <div class="bor8 bg0 m-b-12 m-r-10" style="flex:1">
-                  <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="shipping_state" name="shipping_state" placeholder="Estado" required />
-                </div>
-              </div>
-              <div class="bor8 bg0 m-b-12">
-                <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" id="shipping_zip" name="shipping_zip" placeholder="CEP" required />
-              </div>
-              <div class="bor8 bg0 m-b-12">
-                <select class="stext-111 cl8 plh3 size-111 p-lr-15" id="shipping_country" name="shipping_country">
-                  <option value="BR">Brasil</option>
-                  <option value="PT">Portugal</option>
-                  <option value="US">Estados Unidos</option>
-                  <option value="GB">Reino Unido</option>
+                <select class="stext-111 cl8 plh3 size-111 p-lr-15" id="shipping_city" name="shipping_city" required>
+                  <option value="">Selecione a cidade</option>
                 </select>
               </div>
               <div class="bor8 bg0 m-b-12">
-                <select class="stext-111 cl8 plh3 size-111 p-lr-15" id="payment_method" name="payment_method">
+                <select class="stext-111 cl8 plh3 size-111 p-lr-15" id="payment_method" name="payment_method" required>
                   <option value="">Forma de pagamento</option>
-                  <option value="pix">PIX</option>
-                  <option value="cartao">Cartão de crédito</option>
-                  <option value="boleto">Boleto</option>
-                  <option value="transferencia">Transferência</option>
                 </select>
               </div>
               <div class="bor8 bg0 m-b-22">
@@ -599,6 +575,7 @@
     <script src="vendor/sweetalert/sweetalert.min.js"></script>
     <script src="js/config.js"></script>
     <script src="js/site-config.js"></script>
+    <script src="js/phone-mask.js"></script>
     <script src="js/checkout-validation.js"></script>
     <script src="js/cart.js"></script>
     <script src="js/cart-page.js"></script>

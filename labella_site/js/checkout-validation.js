@@ -3,13 +3,10 @@
  */
 const CHECKOUT_VALIDATION = {
   fields: [
-    { id: "customer_name", label: "Nome completo", required: true },
-    { id: "customer_email", label: "E-mail", required: true, type: "email" },
-    { id: "customer_phone", label: "Telefone", required: false },
-    { id: "shipping_address", label: "Endereço", required: true },
+    { id: "customer_name", label: "Nome", required: true },
+    { id: "customer_phone", label: "Telefone", required: true },
     { id: "shipping_city", label: "Cidade", required: true },
-    { id: "shipping_state", label: "Estado", required: true },
-    { id: "shipping_zip", label: "CEP", required: true },
+    { id: "payment_method", label: "Forma de pagamento", required: true },
   ],
 
   validateEmail(email) {

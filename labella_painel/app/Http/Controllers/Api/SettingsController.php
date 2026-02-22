@@ -19,6 +19,7 @@ class SettingsController extends Controller
         // Normaliza para o formato esperado pelo site (camelCase e estrutura)
         $contact = $raw['contact'] ?? [];
         $social = $raw['social'] ?? [];
+        $cities = $raw['cities'] ?? [];
         $paymentMethods = $raw['payment_methods'] ?? [];
         $paymentIcons = $raw['payment_icons'] ?? [];
 
@@ -36,6 +37,7 @@ class SettingsController extends Controller
                 'instagram' => $social['instagram'] ?? '',
                 'pinterest' => $social['pinterest'] ?? '',
             ],
+            'cities' => $cities,
             'paymentMethods' => $paymentMethods,
             'paymentIcons' => $paymentIcons,
         ]);
