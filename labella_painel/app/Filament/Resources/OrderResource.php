@@ -44,7 +44,6 @@ class OrderResource extends Resource
                         Forms\Components\TextInput::make('customer_email')
                             ->label('Email')
                             ->email()
-                            ->required()
                             ->maxLength(255),
 
                         Forms\Components\TextInput::make('customer_phone')

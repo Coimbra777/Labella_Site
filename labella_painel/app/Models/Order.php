@@ -52,6 +52,17 @@ class Order extends Model
                 $order->order_number = 'ORD-' . strtoupper(Str::random(10));
             }
         });
+
+        static::updated(function ($order) {
+            if ($order->status === 'cancelled' && $order->wasChanged('status')) {
+                foreach ($order->items as $item) {
+                    $product = $item->product;
+                    if ($product) {
+                        $product->increment('quantity', $item->quantity);
+                    }
+                }
+            }
+        });
     }
 
     /**
