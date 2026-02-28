@@ -24,6 +24,7 @@ const LABELLA_SITE_CONFIG = {
     facebook: "https://facebook.com/labella",
     instagram: "https://instagram.com/labella",
     pinterest: "",
+    whatsapp: "",
   },
   cities: [
     { value: "sao-luis", label: "São Luís" },

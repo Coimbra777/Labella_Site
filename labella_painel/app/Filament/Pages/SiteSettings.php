@@ -40,6 +40,7 @@ class SiteSettings extends Page implements HasForms
         $this->form->fill([
             'contact' => $settings['contact'] ?? [],
             'social' => $settings['social'] ?? [],
+            'admin' => $settings['admin'] ?? [],
             'cities' => $settings['cities'] ?? [],
             'payment_methods' => $settings['payment_methods'] ?? [],
             'payment_icons' => $settings['payment_icons'] ?? [],
@@ -87,6 +88,31 @@ class SiteSettings extends Page implements HasForms
                                             ->maxLength(255),
                                     ])->columns(2),
                             ]),
+                        Tabs\Tab::make('Admin')
+                            ->icon('heroicon-o-user-circle')
+                            ->schema([
+                                Section::make('Dados do Admin')
+                                    ->description('E-mail e WhatsApp para receber notificações de novos pedidos')
+                                    ->schema([
+                                        TextInput::make('admin.email')
+                                            ->label('E-mail do Admin')
+                                            ->email()
+                                            ->placeholder('admin@labella.com.br')
+                                            ->helperText('Receberá notificação por e-mail quando houver novo pedido')
+                                            ->maxLength(255),
+                                        TextInput::make('admin.whatsapp')
+                                            ->label('WhatsApp do Admin')
+                                            ->placeholder('5511999999999')
+                                            ->helperText('Formato: 55 + DDD + número, sem espaços. Ex: 5511999999999')
+                                            ->maxLength(20),
+                                        TextInput::make('admin.callmebot_apikey')
+                                            ->label('CallMeBot API Key (opcional)')
+                                            ->placeholder('123456')
+                                            ->helperText('Para receber notificação no WhatsApp. Obtenha em callmebot.com')
+                                            ->password()
+                                            ->maxLength(100),
+                                    ])->columns(2),
+                            ]),
                         Tabs\Tab::make('Cidades')
                             ->icon('heroicon-o-map-pin')
                             ->schema([
@@ -128,6 +154,12 @@ class SiteSettings extends Page implements HasForms
                                             ->label('Pinterest')
                                             ->url()
                                             ->maxLength(255),
+                                        TextInput::make('social.whatsapp')
+                                            ->label('WhatsApp')
+                                            ->url()
+                                            ->placeholder('https://wa.me/5511999999999')
+                                            ->helperText('Link completo. Ex: https://wa.me/5511999999999')
+                                            ->maxLength(255),
                                     ])->columns(2),
                             ]),
                         Tabs\Tab::make('Formas de Pagamento')
@@ -140,7 +172,7 @@ class SiteSettings extends Page implements HasForms
                                             ->label('Métodos')
                                             ->schema([
                                                 TextInput::make('value')
-                                                    ->label('Valor (ID)')
+                                                    ->label('Nome do Pagamento')
                                                     ->required()
                                                     ->placeholder('pix'),
                                                 TextInput::make('label')
@@ -190,6 +222,7 @@ class SiteSettings extends Page implements HasForms
         $record->settings = [
             'contact' => $data['contact'] ?? [],
             'social' => $data['social'] ?? [],
+            'admin' => $data['admin'] ?? [],
             'cities' => $data['cities'] ?? [],
             'payment_methods' => $data['payment_methods'] ?? [],
             'payment_icons' => $data['payment_icons'] ?? [],

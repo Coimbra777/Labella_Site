@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
+use App\Services\OrderNotificationService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -134,6 +135,12 @@ class OrderController extends Controller
             DB::commit();
 
             $order->load('items.product');
+
+            try {
+                app(OrderNotificationService::class)->notifyNewOrder($order);
+            } catch (\Throwable $e) {
+                report($e);
+            }
 
             return response()->json([
                 'message' => 'Order created successfully',

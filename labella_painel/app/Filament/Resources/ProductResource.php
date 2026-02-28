@@ -119,6 +119,7 @@ class ProductResource extends Resource
                     ])->columns(3),
 
                 Forms\Components\Section::make('Imagens')
+                    ->description('Formatos: JPEG, PNG, GIF, WebP. Máximo 5MB por imagem.')
                     ->schema([
                         Forms\Components\FileUpload::make('images')
                             ->label('Imagens do Produto')
@@ -126,6 +127,7 @@ class ProductResource extends Resource
                             ->multiple()
                             ->directory('products')
                             ->maxSize(5120)
+                            ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
                             ->reorderable()
                             ->columnSpanFull()
                             ->helperText('Formatos: JPEG, PNG, GIF, WebP. Máximo 5MB por imagem.'),

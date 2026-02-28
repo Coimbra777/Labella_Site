@@ -42,6 +42,7 @@ class SiteSetting extends Model
                 'facebook' => 'https://facebook.com/labella',
                 'instagram' => 'https://instagram.com/labella',
                 'pinterest' => '',
+                'whatsapp' => '',
             ],
             'cities' => [
                 ['value' => 'sao-luis', 'label' => 'São Luís'],
@@ -53,6 +54,11 @@ class SiteSetting extends Model
                 ['value' => 'cartao', 'label' => 'Cartão de crédito'],
                 ['value' => 'boleto', 'label' => 'Boleto'],
                 ['value' => 'transferencia', 'label' => 'Transferência bancária'],
+            ],
+            'admin' => [
+                'email' => '',
+                'whatsapp' => '',
+                'callmebot_apikey' => '',
             ],
             'payment_icons' => [
                 ['src' => 'images/icons/icon-pay-01.png', 'alt' => 'Visa'],

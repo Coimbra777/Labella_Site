@@ -36,6 +36,7 @@ class SettingsController extends Controller
                 'facebook' => $social['facebook'] ?? '',
                 'instagram' => $social['instagram'] ?? '',
                 'pinterest' => $social['pinterest'] ?? '',
+                'whatsapp' => $social['whatsapp'] ?? '',
             ],
             'cities' => $cities,
             'paymentMethods' => $paymentMethods,

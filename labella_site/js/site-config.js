@@ -53,6 +53,16 @@
       } else el.style.display = "none";
     });
 
+    // Link do WhatsApp
+    document.querySelectorAll("[data-labella-whatsapp-link]").forEach((el) => {
+      if (social.whatsapp) {
+        el.href = social.whatsapp;
+        el.target = "_blank";
+        el.rel = "noopener";
+        el.style.display = "";
+      } else el.style.display = "none";
+    });
+
     // Endereço
     document.querySelectorAll("[data-labella-address]").forEach((el) => {
       el.textContent = contact.address || "";
@@ -93,7 +103,7 @@
       payContainer.innerHTML = paymentIcons
         .map(
           (p) =>
-            `<a href="#" class="m-all-1" title="${p.alt}"><img src="${p.src}" alt="${p.alt}" /></a>`
+            `<span class="m-all-1" title="${p.alt}"><img src="${p.src}" alt="${p.alt}" /></span>`
         )
         .join("");
     }
