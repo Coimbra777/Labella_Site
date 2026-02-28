@@ -17,6 +17,7 @@ class OrdersStatsOverviewWidget extends BaseWidget
         $totalPedidos = Order::query()->withoutTrashed()->count();
         $faturamento = Order::query()
             ->withoutTrashed()
+            ->where('payment_status', 'paid')
             ->whereNotIn('status', ['cancelled'])
             ->sum('total');
         $pedidosMes = Order::query()
@@ -33,7 +34,7 @@ class OrdersStatsOverviewWidget extends BaseWidget
                 ->color('primary'),
 
             Stat::make('Faturamento Total', 'R$ ' . number_format($faturamento, 2, ',', '.'))
-                ->description('Excluindo cancelados')
+                ->description('Somente pedidos pagos')
                 ->descriptionIcon('heroicon-m-currency-dollar')
                 ->color('success'),
 
