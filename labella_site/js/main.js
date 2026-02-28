@@ -128,32 +128,35 @@
 
     /*==================================================================
     [ Isotope ]*/
+    // Páginas com #produtos-container usam products.js para Isotope dinâmico - não inicializar aqui
     var $topeContainer = $('.isotope-grid');
     var $filter = $('.filter-tope-group');
+    var usaProductsJs = $('#produtos-container').length > 0;
 
-    // filter items on button click
-    $filter.each(function () {
-        $filter.on('click', 'button', function () {
-            var filterValue = $(this).attr('data-filter');
-            $topeContainer.isotope({filter: filterValue});
-        });
-        
-    });
-
-    // init Isotope
-    $(window).on('load', function () {
-        var $grid = $topeContainer.each(function () {
-            $(this).isotope({
-                itemSelector: '.isotope-item',
-                layoutMode: 'fitRows',
-                percentPosition: true,
-                animationEngine : 'best-available',
-                masonry: {
-                    columnWidth: '.isotope-item'
-                }
+    if (!usaProductsJs) {
+        // filter items on button click
+        $filter.each(function () {
+            $filter.on('click', 'button', function () {
+                var filterValue = $(this).attr('data-filter');
+                $topeContainer.isotope({filter: filterValue});
             });
         });
-    });
+
+        // init Isotope
+        $(window).on('load', function () {
+            var $grid = $topeContainer.each(function () {
+                $(this).isotope({
+                    itemSelector: '.isotope-item',
+                    layoutMode: 'fitRows',
+                    percentPosition: true,
+                    animationEngine : 'best-available',
+                    masonry: {
+                        columnWidth: '.isotope-item'
+                    }
+                });
+            });
+        });
+    }
 
     var isotopeButton = $('.filter-tope-group button');
 
