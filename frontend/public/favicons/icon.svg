@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52" width="52" height="52">
+  <!-- Versão compacta LB com #FF008C -->
+  <!-- Haste vertical compartilhada L/B -->
+  <rect x="6" y="4" width="4" height="44" rx="2" fill="#FF008C"/>
+
+  <!-- Serifa topo L -->
+  <rect x="6" y="4" width="16" height="4" rx="2" fill="#FF008C"/>
+  <!-- Serifa base L -->
+  <rect x="6" y="44" width="20" height="4" rx="2" fill="#FF008C"/>
+
+  <!-- B - loop superior -->
+  <path d="M 10,8
+           C 28,8  34,14  34,22
+           C 34,30  28,34  18,34
+           L 10,34"
+        fill="none" stroke="#FF008C" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- B - loop inferior -->
+  <path d="M 10,34
+           C 28,34  38,38  38,48
+           C 38,58  28,62  16,62
+           L 10,62"
+        fill="none" stroke="#FF008C" stroke-width="4" stroke-linecap="round"
+        transform="translate(0, -20)"/>
+</svg>

@@ -1,0 +1,28 @@
+{
+  "name": "LaBella — Moda Feminina",
+  "short_name": "LaBella",
+  "description": "Vitrine de moda feminina. Escolha suas peças e envie sua solicitação.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FCE4EC",
+  "theme_color": "#FF008C",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
