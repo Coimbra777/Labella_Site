@@ -20,22 +20,14 @@ export function SectionTitle({
         className,
       )}
     >
-      <h2 className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight">
-        {title}
-      </h2>
+      <h2 className="text-2xl md:text-3xl font-semibold text-foreground tracking-tight">{title}</h2>
       {subtitle && <p className="text-muted-foreground max-w-xl">{subtitle}</p>}
       <span className="h-1 w-12 rounded-full bg-primary mt-1" />
     </div>
   );
 }
 
-export function LoadingSkeleton({
-  count = 6,
-  className,
-}: {
-  count?: number;
-  className?: string;
-}) {
+export function LoadingSkeleton({ count = 6, className }: { count?: number; className?: string }) {
   return (
     <div
       className={cn(
@@ -69,9 +61,7 @@ export function EmptyState({
         ♡
       </div>
       <h3 className="mt-4 text-lg font-semibold text-foreground">{title}</h3>
-      {description && (
-        <p className="mt-1 text-sm text-muted-foreground max-w-sm">{description}</p>
-      )}
+      {description && <p className="mt-1 text-sm text-muted-foreground max-w-sm">{description}</p>}
       {action && <div className="mt-4">{action}</div>}
     </div>
   );

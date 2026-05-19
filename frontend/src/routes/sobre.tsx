@@ -29,9 +29,7 @@ function AboutPage() {
         </div>
         <div>
           <h3 className="text-xl font-semibold text-foreground">Nossa história</h3>
-          <p className="mt-3 text-muted-foreground leading-relaxed whitespace-pre-line">
-            {about}
-          </p>
+          <p className="mt-3 text-muted-foreground leading-relaxed whitespace-pre-line">{about}</p>
           <div className="mt-6">
             <Link to="/produtos">
               <PillButton>Ver produtos</PillButton>

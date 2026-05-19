@@ -14,11 +14,7 @@ export function CategoryFilter({ categories, selectedId, onSelect }: Props) {
         Todas
       </Chip>
       {categories.map((c) => (
-        <Chip
-          key={c.id}
-          active={selectedId === c.id}
-          onClick={() => onSelect(c.id)}
-        >
+        <Chip key={c.id} active={selectedId === c.id} onClick={() => onSelect(c.id)}>
           {c.name}
         </Chip>
       ))}

@@ -45,12 +45,18 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="rounded-full bg-primary px-6 h-11 text-sm font-medium text-primary-foreground hover:opacity-90"
           >
             Tentar novamente
           </button>
-          <a href="/" className="rounded-full border border-input bg-white px-6 h-11 inline-flex items-center text-sm font-medium hover:bg-secondary">
+          <a
+            href="/"
+            className="rounded-full border border-input bg-white px-6 h-11 inline-flex items-center text-sm font-medium hover:bg-secondary"
+          >
             Início
           </a>
         </div>
@@ -65,7 +71,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "LaBella — Moda feminina" },
-      { name: "description", content: "LaBella: vitrine de moda feminina. Escolha suas peças e envie sua solicitação." },
+      {
+        name: "description",
+        content: "LaBella: vitrine de moda feminina. Escolha suas peças e envie sua solicitação.",
+      },
       { name: "theme-color", content: "#FF008C" },
       { name: "msapplication-TileColor", content: "#FF008C" },
       { property: "og:title", content: "LaBella — Moda feminina" },
@@ -91,7 +100,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <head><HeadContent /></head>
+      <head>
+        <HeadContent />
+      </head>
       <body>
         {children}
         <Scripts />

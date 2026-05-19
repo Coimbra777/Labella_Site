@@ -3,12 +3,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { HeroBanner } from "@/components/HeroBanner";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import { CategoryFilter } from "@/components/products/CategoryFilter";
-import {
-  EmptyState,
-  ErrorState,
-  LoadingSkeleton,
-  SectionTitle,
-} from "@/components/ui/States";
+import { EmptyState, ErrorState, LoadingSkeleton, SectionTitle } from "@/components/ui/States";
 import { PillButton } from "@/components/ui/PillButton";
 import { useProducts } from "@/hooks/useProducts";
 import { useCategories } from "@/hooks/useCategories";
@@ -49,11 +44,7 @@ function HomePage() {
 
         {cats && cats.length > 0 && (
           <div className="mt-6">
-            <CategoryFilter
-              categories={cats}
-              selectedId={categoryId}
-              onSelect={setCategoryId}
-            />
+            <CategoryFilter categories={cats} selectedId={categoryId} onSelect={setCategoryId} />
           </div>
         )}
 
@@ -66,9 +57,7 @@ function HomePage() {
               description="Em breve novidades por aqui."
             />
           )}
-          {!isLoading && !isError && products.length > 0 && (
-            <ProductGrid products={products} />
-          )}
+          {!isLoading && !isError && products.length > 0 && <ProductGrid products={products} />}
         </div>
 
         <div className="mt-10 flex justify-center">
@@ -86,8 +75,8 @@ function HomePage() {
             Pronta para escolher suas peças?
           </h3>
           <p className="mt-2 text-muted-foreground max-w-xl mx-auto">
-            Monte sua seleção e envie sua solicitação. Nossa equipe entra em
-            contato para confirmar disponibilidade, entrega e pagamento.
+            Monte sua seleção e envie sua solicitação. Nossa equipe entra em contato para confirmar
+            disponibilidade, entrega e pagamento.
           </p>
           <div className="mt-6">
             <Link to="/produtos">

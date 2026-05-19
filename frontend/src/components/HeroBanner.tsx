@@ -21,9 +21,8 @@ export function HeroBanner() {
             Moda feminina <span className="text-primary">com delicadeza</span> e atitude.
           </h1>
           <p className="mt-4 text-muted-foreground text-base md:text-lg max-w-lg">
-            Descubra peças cuidadosamente selecionadas para o seu estilo.
-            Monte sua seleção e envie sua solicitação — nossa equipe entra em
-            contato com você.
+            Descubra peças cuidadosamente selecionadas para o seu estilo. Monte sua seleção e envie
+            sua solicitação — nossa equipe entra em contato com você.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <Link to="/produtos">

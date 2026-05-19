@@ -64,18 +64,18 @@
 :root {
   --radius: 0.625rem;
   /* LaBella brand: rosa claro #FCE4EC + magenta #FF008C */
-  --background: oklch(0.962 0.024 8);        /* #FCE4EC */
-  --foreground: oklch(0.32 0 0);              /* #333333 */
+  --background: oklch(0.962 0.024 8); /* #FCE4EC */
+  --foreground: oklch(0.32 0 0); /* #333333 */
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.32 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.32 0 0);
-  --primary: oklch(0.62 0.27 0);              /* #FF008C magenta */
+  --primary: oklch(0.62 0.27 0); /* #FF008C magenta */
   --primary-foreground: oklch(1 0 0);
   --secondary: oklch(0.95 0.03 8);
   --secondary-foreground: oklch(0.32 0 0);
   --muted: oklch(0.95 0.015 8);
-  --muted-foreground: oklch(0.5 0 0);         /* #666666 */
+  --muted-foreground: oklch(0.5 0 0); /* #666666 */
   --accent: oklch(0.9 0.05 8);
   --accent-foreground: oklch(0.32 0 0);
   --destructive: oklch(0.577 0.245 27.325);

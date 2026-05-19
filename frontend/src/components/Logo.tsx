@@ -71,41 +71,120 @@ export function Logo({ variant = "horizontal", className }: LogoProps) {
       {/* Wordmark LaBella */}
       <g transform="translate(62, 44)">
         {/* L */}
-        <path d="M 0,-24 L 0,0 L 12,0" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <path
+          d="M 0,-24 L 0,0 L 12,0"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
 
         {/* a */}
         <g transform="translate(20, 0)">
-          <ellipse cx="6" cy="-6" rx="6" ry="6.5" fill="none" stroke="currentColor" strokeWidth="3" />
-          <path d="M 12,-12 L 12,0" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+          <ellipse
+            cx="6"
+            cy="-6"
+            rx="6"
+            ry="6.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+          />
+          <path
+            d="M 12,-12 L 12,0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
         </g>
 
         {/* B */}
         <g transform="translate(40, 0)">
-          <path d="M 0,-24 L 0,0" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-          <path d="M 0,-20 C 12,-20 16,-15 16,-10 C 16,-5 12,-2 0,-2" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
-          <path d="M 0,-2 C 14,-2 18,2 18,8 C 18,14 12,16 0,16" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+          <path
+            d="M 0,-24 L 0,0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 0,-20 C 12,-20 16,-15 16,-10 C 16,-5 12,-2 0,-2"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
+          <path
+            d="M 0,-2 C 14,-2 18,2 18,8 C 18,14 12,16 0,16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
         </g>
 
         {/* e */}
         <g transform="translate(66, 0)">
-          <ellipse cx="6" cy="-6" rx="6" ry="6.5" fill="none" stroke="currentColor" strokeWidth="3" />
-          <path d="M 0.5,-6 L 11.5,-6" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+          <ellipse
+            cx="6"
+            cy="-6"
+            rx="6"
+            ry="6.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+          />
+          <path
+            d="M 0.5,-6 L 11.5,-6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
         </g>
 
         {/* l */}
         <g transform="translate(84, 0)">
-          <path d="M 0,-24 L 0,0" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+          <path
+            d="M 0,-24 L 0,0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
         </g>
 
         {/* l */}
         <g transform="translate(92, 0)">
-          <path d="M 0,-24 L 0,0" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+          <path
+            d="M 0,-24 L 0,0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
         </g>
 
         {/* a */}
         <g transform="translate(100, 0)">
-          <ellipse cx="6" cy="-6" rx="6" ry="6.5" fill="none" stroke="currentColor" strokeWidth="3" />
-          <path d="M 12,-12 L 12,0" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+          <ellipse
+            cx="6"
+            cy="-6"
+            rx="6"
+            ry="6.5"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+          />
+          <path
+            d="M 12,-12 L 12,0"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="3"
+            strokeLinecap="round"
+          />
         </g>
       </g>
     </svg>

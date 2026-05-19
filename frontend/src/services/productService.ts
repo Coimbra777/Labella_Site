@@ -18,7 +18,9 @@ function unwrapProductResponse(res: unknown): Product {
 }
 
 export const productService = {
-  async list(params: { page?: number; per_page?: number; category_id?: number; search?: string } = {}) {
+  async list(
+    params: { page?: number; per_page?: number; category_id?: number; search?: string } = {},
+  ) {
     const q = new URLSearchParams();
     if (params.page) q.set("page", String(params.page));
     if (params.per_page) q.set("per_page", String(params.per_page));

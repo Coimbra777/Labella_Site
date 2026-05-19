@@ -11,13 +11,10 @@ export function CartSummary() {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-muted-foreground text-sm">Subtotal (referência)</span>
-        <span className="text-primary text-lg font-semibold">
-          {formatCurrency(subtotal)}
-        </span>
+        <span className="text-primary text-lg font-semibold">{formatCurrency(subtotal)}</span>
       </div>
       <p className="text-xs text-muted-foreground leading-relaxed pt-2 border-t border-border">
-        Os valores oficiais (frete, descontos e total final) serão confirmados
-        pela nossa equipe.
+        Os valores oficiais (frete, descontos e total final) serão confirmados pela nossa equipe.
       </p>
     </div>
   );

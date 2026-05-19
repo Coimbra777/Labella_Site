@@ -8,8 +8,7 @@ interface BaseProps {
   containerClassName?: string;
 }
 
-export type InputProps = BaseProps &
-  React.InputHTMLAttributes<HTMLInputElement>;
+export type InputProps = BaseProps & React.InputHTMLAttributes<HTMLInputElement>;
 
 const inputCls =
   "w-full h-11 rounded-full border border-input bg-white px-4 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:border-primary transition";
@@ -41,8 +40,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 );
 Input.displayName = "Input";
 
-export type TextareaProps = BaseProps &
-  React.TextareaHTMLAttributes<HTMLTextAreaElement>;
+export type TextareaProps = BaseProps & React.TextareaHTMLAttributes<HTMLTextAreaElement>;
 
 export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ label, error, hint, containerClassName, className, id, ...props }, ref) => {
@@ -75,8 +73,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
 );
 Textarea.displayName = "Textarea";
 
-export type SelectProps = BaseProps &
-  React.SelectHTMLAttributes<HTMLSelectElement>;
+export type SelectProps = BaseProps & React.SelectHTMLAttributes<HTMLSelectElement>;
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(
   ({ label, error, hint, containerClassName, className, id, children, ...props }, ref) => {
@@ -91,7 +88,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         <select
           id={inputId}
           ref={ref}
-          className={cn(inputCls, "appearance-none pr-10", error && "border-destructive", className)}
+          className={cn(
+            inputCls,
+            "appearance-none pr-10",
+            error && "border-destructive",
+            className,
+          )}
           {...props}
         >
           {children}

@@ -26,9 +26,7 @@ export function ProductCard({ product }: { product: Product }) {
         <h3 className="text-sm font-medium text-foreground line-clamp-2 min-h-10">
           {product.name}
         </h3>
-        <p className="mt-1 text-primary font-semibold">
-          {formatCurrency(product.price)}
-        </p>
+        <p className="mt-1 text-primary font-semibold">{formatCurrency(product.price)}</p>
       </div>
     </Link>
   );

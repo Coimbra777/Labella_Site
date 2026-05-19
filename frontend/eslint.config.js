@@ -36,5 +36,19 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
+  // shadcn/ui: variantes (cva) e utilitários exportados no mesmo arquivo que o componente
+  {
+    files: ["src/components/ui/**/*.{ts,tsx}"],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
+  // Context: Provider + hook no mesmo módulo
+  {
+    files: ["src/context/**/*.{ts,tsx}"],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
   eslintPluginPrettier,
 );
