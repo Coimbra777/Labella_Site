@@ -14,6 +14,12 @@ class SendNewOrderNotifications implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    /** @var int */
+    public $tries = 3;
+
+    /** @var int */
+    public $timeout = 90;
+
     public function __construct(
         public int $orderId
     ) {}

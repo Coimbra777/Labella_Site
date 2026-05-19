@@ -2,83 +2,41 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Contracts\ProductRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    private const ALLOWED_SORT_COLUMNS = [
-        'created_at',
-        'name',
-        'price',
-        'sort_order',
-    ];
-
-    /**
-     * Transform product images to full URLs.
-     */
-    private function transformProductImages(Product $product): array
-    {
-        $data = $product->toArray();
-        $images = $product->images ?? [];
-
-        if (is_array($images) && !empty($images)) {
-            $data['images'] = array_map(function ($path) {
-                if (empty($path) || str_starts_with($path, 'http')) {
-                    return $path;
-                }
-                return Storage::disk('public')->url($path);
-            }, $images);
-            $data['main_image'] = $data['images'][0] ?? null;
-        } else {
-            $data['main_image'] = null;
-        }
-
-        return $data;
-    }
+    public function __construct(
+        private readonly ProductRepositoryInterface $products,
+    ) {}
 
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Product::with('category')
-            ->where('is_active', true);
+        $input = [
+            'search' => $request->has('search') ? (string) $request->search : null,
+            'sort_by' => $request->string('sort_by')->toString(),
+            'sort_order' => $request->string('sort_order', 'asc')->toString(),
+            'per_page' => max(1, min((int) $request->integer('per_page', 12), 48)),
+            'require_featured' => $request->has('featured') && $request->boolean('featured'),
+        ];
 
-        // Filter by category
         if ($request->has('category_id')) {
-            $query->where('category_id', $request->category_id);
+            $input['category_id'] = $request->category_id;
         }
 
-        // Filter by featured
-        if ($request->has('featured') && $request->featured) {
-            $query->where('is_featured', true);
-        }
+        $paginated = $this->products->paginatePublicCatalog($input);
 
-        // Search by name
-        if ($request->has('search')) {
-            $query->where('name', 'like', '%' . $request->search . '%');
-        }
-
-        // Sort
-        $sortBy = $request->string('sort_by')->toString();
-        $sortBy = in_array($sortBy, self::ALLOWED_SORT_COLUMNS, true) ? $sortBy : 'sort_order';
-
-        $sortOrder = strtolower($request->string('sort_order', 'asc')->toString());
-        $sortOrder = in_array($sortOrder, ['asc', 'desc'], true) ? $sortOrder : 'asc';
-        $query->orderBy($sortBy, $sortOrder);
-
-        // Pagination
-        $perPage = max(1, min((int) $request->integer('per_page', 12), 48));
-        $paginated = $query->paginate($perPage);
-
-        // Transform products with full image URLs
-        $paginated->getCollection()->transform(function ($product) {
-            return $this->transformProductImages($product);
-        });
+        $paginated->getCollection()->transform(
+            static fn (Product $product) => (new ProductResource($product))->resolve(),
+        );
 
         return response()->json($paginated);
     }
@@ -88,10 +46,8 @@ class ProductController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $product = Product::with('category')
-            ->where('is_active', true)
-            ->findOrFail($id);
+        $product = $this->products->findActiveByIdForPublic($id);
 
-        return response()->json($this->transformProductImages($product));
+        return response()->json((new ProductResource($product))->resolve());
     }
 }

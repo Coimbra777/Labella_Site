@@ -1,96 +1,51 @@
-### Passo a passo
+# Backend (LaBella)
 
-```sh
-cd labella_painel
-```
+Laravel, Filament, API pública `/api/v1`, fila de notificações.
 
-Construa e suba os containers do projeto
+## Requisitos
 
-```sh
+Docker e Docker Compose.
+
+## Subir o ambiente
+
+```bash
+cp .env.example .env
 docker compose build
 docker compose up -d
+docker compose exec app composer install
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan migrate
 ```
 
-> **Nota:** O `build` garante que a imagem inclua a extensão PHP `ext-zip`, necessária para o Filament/Composer.
+| Serviço        | URL / porta        |
+|----------------|--------------------|
+| App (Nginx)    | http://localhost:8000 |
+| Filament      | http://localhost:8000/admin |
+| phpMyAdmin    | http://localhost:8080 |
+| MySQL (host)  | localhost:3300     |
 
-Crie o Arquivo .env
+Credenciais padrão do `.env.example`: alinhar `DB_*` com o serviço `db` do compose (`DB_HOST=db` dentro do container; use `localhost:3300` a partir da máquina host com o mesmo usuário/senha).
 
-```sh
-cp .env.example .env
+Na primeira vez, crie um administrador (Filament):
+
+```bash
+docker compose exec app php artisan labella:make-super-admin
 ```
 
-Acesse o container app
+## Comandos úteis
 
-```sh
-docker compose exec -u yourusername app bash
+```bash
+docker compose exec app bash
+php artisan test
+php artisan queue:work   # já roda no serviço `queue`
 ```
 
-Instale as dependências do projeto
+Se testes falharem com erro do guard **Sanctum**, rode: `php artisan package:discover`.
 
-```sh
-composer install
-```
+## Problemas comuns
 
-Gere a key do projeto Laravel
+**502 / app não sobe:** `docker compose logs app` e `docker compose logs nginx`.
 
-```sh
-php artisan key:generate
-```
+**Permissões em `storage`:** `docker compose exec app chown -R www-data:www-data storage bootstrap/cache`
 
-Rodar as migrations
-
-```sh
-php artisan migrate
-```
-
-Acesse o projeto
-
-| URL | Descrição |
-|-----|-----------|
-| [http://localhost:8000](http://localhost:8000) | Painel Laravel |
-| [http://localhost:8000/admin](http://localhost:8000/admin) | Painel Filament (admin) |
-| [http://localhost:3000](http://localhost:3000) | Site da loja (labella_site) |
-
----
-
-### Solução de problemas
-
-**Erro: `ext-zip * -> it is missing from your system`**
-
-A extensão zip não está instalada no container. Reconstrua a imagem:
-
-```sh
-docker compose build --no-cache app
-docker compose up -d
-docker compose exec -u yourusername app composer install
-```
-
-**Permission denied em storage/framework/views**
-
-Reconstrua a imagem (o entrypoint ajusta as permissões automaticamente):
-
-```sh
-docker compose build --no-cache app
-docker compose up -d
-```
-
-Ou ajuste manualmente: `docker compose exec app chown -R www-data:www-data storage bootstrap/cache`
-
-**502 Bad Gateway**
-
-O PHP-FPM não está respondendo. Verifique:
-
-```sh
-# Status dos containers
-docker compose ps
-
-# Logs do app (PHP-FPM)
-docker compose logs app
-
-# Logs do nginx
-docker compose logs nginx
-```
-
-Se o container `app` estiver parado ou reiniciando:
-1. Confirme que `composer install` foi executado com sucesso (pasta `vendor` existe)
-2. Reconstrua: `docker compose build --no-cache app && docker compose up -d`
+**Fila de e-mail não dispara:** confira `QUEUE_CONNECTION` no `.env` e se o container `queue` está em execução.

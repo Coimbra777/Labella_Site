@@ -2,63 +2,42 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Contracts\OrderRepositoryInterface;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Admin\UpdateOrderRequest;
 use App\Models\Order;
 use App\Services\OrderStatusService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
-    private const ALLOWED_SORT_COLUMNS = [
-        'created_at',
-        'customer_name',
-        'order_number',
-        'payment_status',
-        'status',
-        'total',
-    ];
+    public function __construct(
+        private readonly OrderRepositoryInterface $orders,
+    ) {}
 
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request): JsonResponse
     {
-        $query = Order::with(['user', 'items.product']);
+        $input = [
+            'search' => $request->has('search') ? (string) $request->search : null,
+            'sort_by' => $request->string('sort_by')->toString(),
+            'sort_order' => $request->string('sort_order', 'desc')->toString(),
+            'per_page' => max(1, min((int) $request->integer('per_page', 15), 100)),
+        ];
 
-        // Filter by status
         if ($request->has('status')) {
-            $query->where('status', $request->status);
+            $input['status'] = $request->status;
         }
 
-        // Filter by payment status
         if ($request->has('payment_status')) {
-            $query->where('payment_status', $request->payment_status);
+            $input['payment_status'] = $request->payment_status;
         }
 
-        // Search by order number or customer
-        if ($request->has('search')) {
-            $search = $request->search;
-            $query->where(function ($q) use ($search) {
-                $q->where('order_number', 'like', "%{$search}%")
-                  ->orWhere('customer_name', 'like', "%{$search}%")
-                  ->orWhere('customer_email', 'like', "%{$search}%");
-            });
-        }
-
-        // Sort
-        $sortBy = $request->string('sort_by')->toString();
-        $sortBy = in_array($sortBy, self::ALLOWED_SORT_COLUMNS, true) ? $sortBy : 'created_at';
-
-        $sortOrder = strtolower($request->string('sort_order', 'desc')->toString());
-        $sortOrder = in_array($sortOrder, ['asc', 'desc'], true) ? $sortOrder : 'desc';
-        $query->orderBy($sortBy, $sortOrder);
-
-        // Pagination
-        $perPage = max(1, min((int) $request->integer('per_page', 15), 100));
-        $orders = $query->paginate($perPage);
+        $orders = $this->orders->paginateAdminList($input);
 
         return response()->json($orders);
     }
@@ -68,33 +47,19 @@ class OrderController extends Controller
      */
     public function show(string $id): JsonResponse
     {
-        $order = Order::with(['user', 'items.product'])->findOrFail($id);
+        $order = $this->orders->findWithAdminRelations($id);
+
         return response()->json($order);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id, OrderStatusService $orderStatusService): JsonResponse
+    public function update(UpdateOrderRequest $request, string $id, OrderStatusService $orderStatusService): JsonResponse
     {
         $order = Order::findOrFail($id);
 
-        $validator = Validator::make($request->all(), [
-            'status' => 'sometimes|in:pending,processing,shipped,delivered,cancelled',
-            'payment_status' => 'sometimes|in:pending,paid,failed,refunded',
-            'shipping_cost' => 'nullable|numeric|min:0',
-            'discount' => 'nullable|numeric|min:0',
-            'notes' => 'nullable|string',
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'message' => 'Validation error',
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        $data = $validator->validated();
+        $data = $request->validated();
         try {
             $order = $orderStatusService->update($order, $data);
         } catch (ValidationException $e) {
@@ -106,7 +71,7 @@ class OrderController extends Controller
 
         return response()->json([
             'message' => 'Pedido atualizado com sucesso.',
-            'order' => $order->load(['user', 'items.product'])
+            'order' => $order->load(['user', 'items.product']),
         ]);
     }
 
@@ -116,9 +81,9 @@ class OrderController extends Controller
     public function destroy(string $id): JsonResponse
     {
         $order = Order::findOrFail($id);
-        
+
         // Only allow deletion of pending or cancelled orders
-        if (!in_array($order->status, ['pending', 'cancelled'])) {
+        if (! in_array($order->status, ['pending', 'cancelled'])) {
             return response()->json([
                 'message' => 'Somente solicitações pendentes ou canceladas podem ser excluídas.',
             ], 422);
@@ -127,7 +92,7 @@ class OrderController extends Controller
         $order->delete();
 
         return response()->json([
-            'message' => 'Order deleted successfully'
+            'message' => 'Order deleted successfully',
         ]);
     }
 }

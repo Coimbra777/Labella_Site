@@ -8,14 +8,14 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root.tsx'
-import { Route as SobreRouteImport } from './routes/sobre.tsx'
-import { Route as ContatoRouteImport } from './routes/contato.tsx'
-import { Route as ConfirmacaoRouteImport } from './routes/confirmacao.tsx'
-import { Route as CarrinhoRouteImport } from './routes/carrinho.tsx'
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as SobreRouteImport } from './routes/sobre'
+import { Route as ContatoRouteImport } from './routes/contato'
+import { Route as ConfirmacaoRouteImport } from './routes/confirmacao'
+import { Route as CarrinhoRouteImport } from './routes/carrinho'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as ProdutosIndexRouteImport } from './routes/produtos.index.tsx'
-import { Route as ProdutosIdRouteImport } from './routes/produtos.$id.tsx'
+import { Route as ProdutosIndexRouteImport } from './routes/produtos.index'
+import { Route as ProdutosIdRouteImport } from './routes/produtos.$id'
 
 const SobreRoute = SobreRouteImport.update({
   id: '/sobre',

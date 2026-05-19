@@ -27,5 +27,13 @@ class AppServiceProvider extends ServiceProvider
                 Limit::perMinute(5)->by($request->ip()),
             ];
         });
+
+        RateLimiter::for('api-admin-login', function (Request $request) {
+            $email = (string) $request->input('email', '');
+
+            return [
+                Limit::perMinute(5)->by($request->ip().'|'.$email),
+            ];
+        });
     }
 }

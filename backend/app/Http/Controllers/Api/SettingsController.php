@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SettingsResource;
 use App\Models\SiteSetting;
 use Illuminate\Http\JsonResponse;
 
@@ -14,33 +15,8 @@ class SettingsController extends Controller
      */
     public function index(): JsonResponse
     {
-        $raw = SiteSetting::getSettings();
-
-        // Normaliza para o formato esperado pelo site (camelCase e estrutura)
-        $contact = $raw['contact'] ?? [];
-        $social = $raw['social'] ?? [];
-        $cities = $raw['cities'] ?? [];
-        $paymentMethods = $raw['payment_methods'] ?? [];
-        $paymentIcons = $raw['payment_icons'] ?? [];
-
-        return response()->json([
-            'contact' => [
-                'instagram' => $contact['instagram'] ?? '@labella',
-                'instagramUrl' => $contact['instagram_url'] ?? '',
-                'email' => $contact['email'] ?? '',
-                'phone' => $contact['phone'] ?? '',
-                'whatsapp' => $contact['whatsapp'] ?? '',
-                'address' => $contact['address'] ?? '',
-            ],
-            'social' => [
-                'facebook' => $social['facebook'] ?? '',
-                'instagram' => $social['instagram'] ?? '',
-                'pinterest' => $social['pinterest'] ?? '',
-                'whatsapp' => $social['whatsapp'] ?? '',
-            ],
-            'cities' => $cities,
-            'paymentMethods' => $paymentMethods,
-            'paymentIcons' => $paymentIcons,
-        ]);
+        return response()->json(
+            (new SettingsResource(SiteSetting::getSettings()))->resolve(),
+        );
     }
 }

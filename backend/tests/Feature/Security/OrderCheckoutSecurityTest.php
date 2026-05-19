@@ -47,13 +47,21 @@ class OrderCheckoutSecurityTest extends TestCase
 
         $response->assertCreated()
             ->assertJsonPath('message', 'Solicitação enviada com sucesso.')
-            ->assertJsonPath('order.subtotal', '119.80')
-            ->assertJsonPath('order.shipping_cost', '0.00')
-            ->assertJsonPath('order.discount', '0.00')
-            ->assertJsonPath('order.total', '119.80')
-            ->assertJsonPath('order.status', 'pending')
-            ->assertJsonPath('order.payment_status', 'pending')
-            ->assertJsonPath('order.payment_method', null);
+            ->assertJsonPath('order.status', 'pending');
+
+        $orderPayload = $response->json('order');
+        $this->assertIsArray($orderPayload);
+        $this->assertArrayHasKey('order_number', $orderPayload);
+        $this->assertStringStartsWith('ORD-', $orderPayload['order_number']);
+        $this->assertEqualsWithDelta(119.80, (float) $orderPayload['subtotal'], 0.01);
+        $this->assertEqualsWithDelta(119.80, (float) $orderPayload['total'], 0.01);
+        $this->assertArrayNotHasKey('shipping_cost', $orderPayload);
+        $this->assertArrayNotHasKey('payment_status', $orderPayload);
+        $this->assertCount(1, $orderPayload['items']);
+        $item = $orderPayload['items'][0];
+        $this->assertSame($product->id, $item['product_id']);
+        $this->assertSame('Vestido Midi', $item['name']);
+        $this->assertArrayNotHasKey('product', $item);
 
         $this->assertDatabaseHas('orders', [
             'id' => $response->json('order.id'),
@@ -267,5 +275,42 @@ class OrderCheckoutSecurityTest extends TestCase
 
         $response->assertStatus(422)
             ->assertJsonValidationErrors(['items']);
+    }
+
+    public function test_public_order_json_never_includes_nested_product_or_stock_fields(): void
+    {
+        Queue::fake();
+
+        $category = Category::create([
+            'name' => 'Vestidos',
+            'slug' => 'vestidos',
+        ]);
+
+        $product = Product::create([
+            'category_id' => $category->id,
+            'name' => 'Vestido Midi',
+            'slug' => 'vestido-midi-2',
+            'price' => 59.90,
+            'quantity' => 99,
+            'is_active' => true,
+        ]);
+
+        $response = $this->postJson('/api/v1/orders', [
+            'customer_name' => 'Cliente Teste',
+            'customer_phone' => '5598999999999',
+            'shipping_city' => 'Sao Luis',
+            'items' => [
+                [
+                    'product_id' => $product->id,
+                    'quantity' => 1,
+                ],
+            ],
+        ]);
+
+        $response->assertCreated();
+        $raw = (string) $response->getContent();
+        $this->assertStringNotContainsString('"product":', $raw);
+        $this->assertStringNotContainsString('"is_active"', $raw);
+        $this->assertStringNotContainsString('"category_id"', $raw);
     }
 }

@@ -37,7 +37,7 @@ class AdminAccessSecurityTest extends TestCase
         $product = Product::create([
             'category_id' => $category->id,
             'name' => 'Vestido Festa',
-            'slug' => 'vestido-festa-' . fake()->unique()->numerify('###'),
+            'slug' => 'vestido-festa-'.fake()->unique()->numerify('###'),
             'price' => 199.90,
             'quantity' => $productQuantity,
             'is_active' => true,
@@ -78,6 +78,81 @@ class AdminAccessSecurityTest extends TestCase
         $this->actingAs($user)
             ->getJson('/api/admin/orders')
             ->assertForbidden();
+    }
+
+    public function test_guest_cannot_access_admin_api(): void
+    {
+        $this->getJson('/api/admin/orders')->assertUnauthorized();
+    }
+
+    public function test_admin_bearer_token_can_access_admin_api(): void
+    {
+        $user = $this->createAdmin();
+        $plain = $this->postJson('/api/admin/token', [
+            'email' => $user->email,
+            'password' => 'secret123',
+        ])
+            ->assertOk()
+            ->assertJsonStructure(['token', 'token_type', 'user'])
+            ->json('token');
+
+        $this->withToken($plain)->getJson('/api/admin/orders')->assertOk();
+    }
+
+    public function test_non_admin_cannot_issue_api_token(): void
+    {
+        $user = User::create([
+            'name' => 'Operador',
+            'email' => 'operador@example.com',
+            'password' => bcrypt('secret123'),
+            'is_admin' => false,
+        ]);
+
+        $this->postJson('/api/admin/token', [
+            'email' => $user->email,
+            'password' => 'secret123',
+        ])->assertForbidden();
+    }
+
+    public function test_token_issue_with_invalid_credentials_returns_401(): void
+    {
+        $user = $this->createAdmin();
+        $this->postJson('/api/admin/token', [
+            'email' => $user->email,
+            'password' => 'wrong-password',
+        ])->assertUnauthorized();
+    }
+
+    public function test_non_admin_bearer_token_cannot_access_admin_api(): void
+    {
+        $user = User::create([
+            'name' => 'Operador',
+            'email' => 'operador@example.com',
+            'password' => bcrypt('secret123'),
+            'is_admin' => false,
+        ]);
+        $plain = $user->createToken('test-client')->plainTextToken;
+
+        $this->withToken($plain)
+            ->getJson('/api/admin/orders')
+            ->assertForbidden();
+    }
+
+    public function test_admin_can_revoke_current_bearer_token(): void
+    {
+        $user = $this->createAdmin();
+        $plain = $this->postJson('/api/admin/token', [
+            'email' => $user->email,
+            'password' => 'secret123',
+        ])->assertOk()->json('token');
+
+        $this->withToken($plain)
+            ->deleteJson('/api/admin/token')
+            ->assertNoContent();
+
+        $this->withToken($plain)
+            ->getJson('/api/admin/orders')
+            ->assertUnauthorized();
     }
 
     public function test_admin_user_can_access_admin_api(): void
