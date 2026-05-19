@@ -23,6 +23,10 @@ class EditOrder extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
+        if (! $record instanceof Order) {
+            throw new \InvalidArgumentException('Expected order record.');
+        }
+
         return app(OrderStatusService::class)->update($record, $data);
     }
 }

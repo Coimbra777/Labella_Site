@@ -33,7 +33,7 @@ return new class extends Migration
             $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('order_number');
             $table->index('user_id');
             $table->index('status');

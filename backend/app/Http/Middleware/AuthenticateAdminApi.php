@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Auth\RequestGuard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,10 @@ class AuthenticateAdminApi
     {
         // Limpa cache do RequestGuard do Sanctum entre requisições no mesmo processo
         // (ex.: phpunit). Não chamar forgetUser no guard web — quebra actingAs().
-        Auth::guard('sanctum')->forgetUser();
+        $sanctum = Auth::guard('sanctum');
+        if ($sanctum instanceof RequestGuard) {
+            $sanctum->forgetUser();
+        }
 
         $user = null;
 

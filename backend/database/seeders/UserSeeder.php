@@ -19,9 +19,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         if (config('app.env') === 'production') {
-            $this->command?->warn(
-                'UserSeeder: ignorado em APP_ENV=production. Crie o admin manualmente (veja backend/README.md).',
-            );
+            if ($this->command !== null) {
+                $this->command->warn(
+                    'UserSeeder: ignorado em APP_ENV=production. Crie o admin manualmente (veja backend/README.md).',
+                );
+            }
 
             return;
         }

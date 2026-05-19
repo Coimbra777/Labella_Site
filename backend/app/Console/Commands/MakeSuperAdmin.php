@@ -43,6 +43,7 @@ class MakeSuperAdmin extends Command
             foreach ($validator->errors()->all() as $error) {
                 $this->error($error);
             }
+
             return self::FAILURE;
         }
 
@@ -53,9 +54,9 @@ class MakeSuperAdmin extends Command
             'is_admin' => true,
         ]);
 
-        $this->info("Super usuário criado com sucesso!");
+        $this->info('Super usuário criado com sucesso!');
         $this->line("E-mail: {$email}");
-        $this->line("Acesse o painel em: " . config('app.url') . '/admin');
+        $this->line('Acesse o painel em: ' . config('app.url') . '/admin');
 
         return self::SUCCESS;
     }

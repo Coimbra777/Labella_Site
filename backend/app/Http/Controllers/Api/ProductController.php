@@ -8,6 +8,7 @@ use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductController extends Controller
 {
@@ -34,9 +35,11 @@ class ProductController extends Controller
 
         $paginated = $this->products->paginatePublicCatalog($input);
 
-        $paginated->getCollection()->transform(
-            static fn (Product $product) => (new ProductResource($product))->resolve(),
-        );
+        if ($paginated instanceof LengthAwarePaginator) {
+            $paginated->through(
+                static fn (Product $product) => (new ProductResource($product))->resolve(),
+            );
+        }
 
         return response()->json($paginated);
     }

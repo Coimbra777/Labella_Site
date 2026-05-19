@@ -37,6 +37,7 @@ docker compose exec app php artisan labella:make-super-admin
 ```bash
 docker compose exec app bash
 php artisan test
+composer phpstan       # Larastan; fora do Docker use --memory-limit se o PHP estiver em 128M
 php artisan queue:work   # já roda no serviço `queue`
 ```
 

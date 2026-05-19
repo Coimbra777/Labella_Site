@@ -18,6 +18,7 @@ class ProductSeeder extends Seeder
 
         if ($categories->isEmpty()) {
             $this->command->warn('No categories found. Please run CategorySeeder first.');
+
             return;
         }
 
@@ -113,7 +114,7 @@ class ProductSeeder extends Seeder
 
         foreach ($products as $index => $productData) {
             // Assign category based on product name
-            $categoryName = match(true) {
+            $categoryName = match (true) {
                 str_contains($productData['name'], 'Vestido') => 'Vestidos',
                 str_contains($productData['name'], 'Blusa') => 'Blusas',
                 str_contains($productData['name'], 'Calça') => 'Calças',

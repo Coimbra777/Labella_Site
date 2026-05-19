@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -82,12 +82,12 @@ class Order extends Model
     {
         static::creating(function ($order) {
             if (empty($order->order_number)) {
-                $order->order_number = 'ORD-' . strtoupper(Str::random(10));
+                $order->order_number = 'ORD-'.strtoupper(Str::random(10));
             }
         });
 
         static::deleting(function (Order $order) {
-            if (!$order->canBeDeleted()) {
+            if (! $order->canBeDeleted()) {
                 throw ValidationException::withMessages([
                     'order' => ['Somente solicitações pendentes ou canceladas podem ser excluídas.'],
                 ]);
@@ -105,6 +105,8 @@ class Order extends Model
 
     /**
      * Get the order items for the order.
+     *
+     * @return HasMany<OrderItem, $this>
      */
     public function items(): HasMany
     {

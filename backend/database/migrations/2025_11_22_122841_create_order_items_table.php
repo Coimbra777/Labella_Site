@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('size')->nullable();
             $table->string('color')->nullable();
             $table->timestamps();
-            
+
             $table->index('order_id');
             $table->index('product_id');
         });

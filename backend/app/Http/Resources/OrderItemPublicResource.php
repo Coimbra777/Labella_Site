@@ -7,6 +7,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * Item de pedido exposto na resposta pública de POST /api/v1/orders (sem relação product).
+ *
+ * @mixin \App\Models\OrderItem
  */
 class OrderItemPublicResource extends JsonResource
 {

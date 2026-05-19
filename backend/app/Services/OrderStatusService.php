@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -52,11 +53,11 @@ class OrderStatusService
 
             $attributes['total'] = max(0, (float) $lockedOrder->subtotal + $shippingCost - $discount);
 
-            if (!$lockedOrder->reservesInventory($originalStatus) && $lockedOrder->reservesInventory($nextStatus)) {
+            if (! $lockedOrder->reservesInventory($originalStatus) && $lockedOrder->reservesInventory($nextStatus)) {
                 $this->reserveInventory($lockedOrder);
             }
 
-            if ($lockedOrder->reservesInventory($originalStatus) && !$lockedOrder->reservesInventory($nextStatus)) {
+            if ($lockedOrder->reservesInventory($originalStatus) && ! $lockedOrder->reservesInventory($nextStatus)) {
                 $this->releaseInventory($lockedOrder);
             }
 
@@ -69,13 +70,13 @@ class OrderStatusService
 
     public function statusOptionsFor(?Order $order = null): array
     {
-        if (!$order) {
+        if (! $order) {
             return Order::statusOptions();
         }
 
         $options = [$order->status => Order::statusOptions()[$order->status] ?? $order->status];
 
-        foreach (self::ALLOWED_TRANSITIONS[$order->status] ?? [] as $status) {
+        foreach (self::ALLOWED_TRANSITIONS[$order->status] as $status) {
             $options[$status] = Order::statusOptions()[$status] ?? $status;
         }
 
@@ -88,7 +89,7 @@ class OrderStatusService
             return;
         }
 
-        if (!in_array($to, self::ALLOWED_TRANSITIONS[$from] ?? [], true)) {
+        if (! in_array($to, self::ALLOWED_TRANSITIONS[$from] ?? [], true)) {
             throw ValidationException::withMessages([
                 'status' => ['Transição de status inválida para este pedido.'],
             ]);
@@ -98,7 +99,7 @@ class OrderStatusService
     private function reserveInventory(Order $order): void
     {
         $itemsByProduct = $order->items
-            ->filter(fn ($item) => $item->product_id !== null)
+            ->filter(fn (OrderItem $item) => $item->product_id !== null)
             ->groupBy('product_id');
 
         $products = Product::query()
@@ -112,7 +113,7 @@ class OrderStatusService
             $requestedQuantity = (int) $items->sum('quantity');
             $productName = (string) $items->first()->product_name;
 
-            if (!$product || !$product->is_active) {
+            if (! $product || ! $product->is_active) {
                 throw ValidationException::withMessages([
                     'status' => ["O item {$productName} nao esta mais disponivel para confirmacao."],
                 ]);
@@ -133,7 +134,7 @@ class OrderStatusService
     private function releaseInventory(Order $order): void
     {
         $itemsByProduct = $order->items
-            ->filter(fn ($item) => $item->product_id !== null)
+            ->filter(fn (OrderItem $item) => $item->product_id !== null)
             ->groupBy('product_id');
 
         $products = Product::query()

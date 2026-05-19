@@ -253,8 +253,8 @@ class OrderCheckoutSecurityTest extends TestCase
         foreach (range(1, 21) as $index) {
             $product = Product::create([
                 'category_id' => $category->id,
-                'name' => 'Produto ' . $index,
-                'slug' => 'produto-' . $index,
+                'name' => 'Produto '.$index,
+                'slug' => 'produto-'.$index,
                 'price' => 10,
                 'quantity' => 10,
                 'is_active' => true,

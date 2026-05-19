@@ -31,7 +31,7 @@ return new class extends Migration
             $table->integer('sort_order')->default(0);
             $table->timestamps();
             $table->softDeletes();
-            
+
             $table->index('category_id');
             $table->index('is_active');
             $table->index('is_featured');

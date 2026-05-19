@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Requests\Api\StorePublicOrderRequest;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
@@ -14,7 +15,7 @@ use Illuminate\Validation\ValidationException;
 class OrderCreationService
 {
     /**
-     * @param  array<string, mixed>  $validated  Dados validados de {@see \App\Http\Requests\Api\StorePublicOrderRequest}
+     * @param  array<string, mixed>  $validated  Dados validados de {@see StorePublicOrderRequest}
      */
     public function createPendingPublicOrder(array $validated): Order
     {

@@ -3,9 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class Product extends Model
@@ -85,9 +85,10 @@ class Product extends Model
     public function getMainImageAttribute(): ?string
     {
         $images = $this->images;
-        if (is_array($images) && !empty($images)) {
+        if (is_array($images) && ! empty($images)) {
             return $images[0];
         }
+
         return null;
     }
 

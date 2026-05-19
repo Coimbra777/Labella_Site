@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\PersonalAccessToken;
 
@@ -46,8 +47,9 @@ class AdminTokenController extends Controller
     /**
      * Revoga o token atual (somente quando a autenticação foi por Bearer).
      */
-    public function destroy(Request $request): JsonResponse|\Illuminate\Http\Response
+    public function destroy(Request $request): JsonResponse|Response
     {
+        /** @var PersonalAccessToken|\Laravel\Sanctum\TransientToken|null $token */
         $token = $request->user()->currentAccessToken();
 
         if (! $token instanceof PersonalAccessToken) {

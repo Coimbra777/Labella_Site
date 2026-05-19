@@ -28,7 +28,7 @@ class SendNewOrderNotifications implements ShouldQueue
     {
         $order = Order::with('items.product')->find($this->orderId);
 
-        if (!$order) {
+        if (! $order) {
             return;
         }
 

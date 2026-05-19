@@ -4,21 +4,24 @@ namespace App\Filament\Pages;
 
 use App\Models\SiteSetting;
 use Filament\Actions\Action;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Tabs;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Form;
 use Filament\Notifications\Notification;
 use Filament\Pages\Concerns\InteractsWithFormActions;
 use Filament\Pages\Page;
-use Filament\Forms\Components\Section;
-use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Tabs;
 
+/**
+ * @property Form $form
+ */
 class SiteSettings extends Page implements HasForms
 {
-    use InteractsWithForms;
     use InteractsWithFormActions;
+    use InteractsWithForms;
 
     protected static ?string $navigationIcon = 'heroicon-o-cog-6-tooth';
 
@@ -215,8 +218,8 @@ class SiteSettings extends Page implements HasForms
         $data = $this->form->getState();
 
         $record = SiteSetting::first();
-        if (!$record) {
-            $record = new SiteSetting();
+        if (! $record) {
+            $record = new SiteSetting;
         }
 
         $record->settings = [

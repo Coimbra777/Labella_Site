@@ -17,7 +17,7 @@ class SettingsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $raw = is_array($this->resource) ? $this->resource : [];
+        $raw = $this->resource;
 
         $contact = $raw['contact'] ?? [];
         $social = $raw['social'] ?? [];

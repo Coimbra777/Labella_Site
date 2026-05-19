@@ -81,7 +81,7 @@ class CategoryController extends Controller
         if ($category->products()->count() > 0) {
             return response()->json([
                 'message' => 'Cannot delete category with products',
-                'error' => 'Category has '.$category->products()->count().' products',
+                'error' => 'Category has ' . $category->products()->count() . ' products',
             ], 422);
         }
 

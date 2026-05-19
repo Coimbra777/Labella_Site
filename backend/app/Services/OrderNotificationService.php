@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Mail\NewOrderNotification;
 use App\Models\Order;
+use App\Models\OrderItem;
 use App\Models\SiteSetting;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
@@ -34,7 +35,7 @@ class OrderNotificationService
     private function sendWhatsAppNotification(Order $order, string $phone, string $apikey): void
     {
         $items = $order->items
-            ->map(fn ($item) => "- {$item->product_name} x{$item->quantity}")
+            ->map(fn (OrderItem $item) => "- {$item->product_name} x{$item->quantity}")
             ->implode("\n");
 
         $message = "🛒 *Nova solicitacao #{$order->order_number}*\n\n";
@@ -45,14 +46,14 @@ class OrderNotificationService
         }
         $message .= "Cidade: {$order->shipping_city}\n\n";
         $message .= "Itens:\n{$items}\n\n";
-        $message .= "Subtotal estimado: R$ " . number_format((float) $order->subtotal, 2, ',', '.') . "\n";
+        $message .= 'Subtotal estimado: R$ '.number_format((float) $order->subtotal, 2, ',', '.')."\n";
         if ($order->notes) {
             $message .= "Observacoes: {$order->notes}\n";
         }
         $message .= "\n";
-        $message .= "Acesse o painel para gerenciar.";
+        $message .= 'Acesse o painel para gerenciar.';
 
-        $url = 'https://api.callmebot.com/whatsapp.php?' . http_build_query([
+        $url = 'https://api.callmebot.com/whatsapp.php?'.http_build_query([
             'phone' => $phone,
             'text' => $message,
             'apikey' => $apikey,

@@ -15,13 +15,13 @@ class OrderFactory extends Factory
     public function definition(): array
     {
         return [
-            'order_number' => 'ORD-' . strtoupper(fake()->bothify('##########')),
+            'order_number' => 'ORD-'.strtoupper(fake()->bothify('##########')),
             'customer_name' => fake()->name(),
             'customer_email' => fake()->safeEmail(),
             'customer_phone' => fake()->phoneNumber(),
             'shipping_address' => fake()->streetAddress(),
             'shipping_city' => fake()->city(),
-            'shipping_state' => fake()->state(),
+            'shipping_state' => fake()->randomElement(['SP', 'MA', 'RJ', 'MG', 'RS', 'PR']),
             'shipping_zip' => fake()->postcode(),
             'shipping_country' => 'BR',
             'subtotal' => 100,

@@ -24,7 +24,7 @@ class ProductResource extends JsonResource
         $data = $product->toArray();
         $images = $product->images ?? [];
 
-        if (is_array($images) && $images !== []) {
+        if ($images !== []) {
             $data['images'] = array_map(static function ($path) {
                 if (empty($path) || str_starts_with((string) $path, 'http')) {
                     return $path;

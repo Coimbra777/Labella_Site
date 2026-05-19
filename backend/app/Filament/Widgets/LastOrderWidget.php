@@ -2,6 +2,7 @@
 
 namespace App\Filament\Widgets;
 
+use App\Filament\Resources\OrderResource;
 use App\Models\Order;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
@@ -11,7 +12,7 @@ class LastOrderWidget extends BaseWidget
 {
     protected static ?int $sort = 2;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected static ?string $heading = 'Última solicitação';
 
@@ -40,6 +41,6 @@ class LastOrderWidget extends BaseWidget
                     ->dateTime('d/m/Y H:i'),
             ])
             ->paginated(false)
-            ->recordUrl(fn (Order $record): string => \App\Filament\Resources\OrderResource::getUrl('edit', ['record' => $record]));
+            ->recordUrl(fn (Order $record): string => OrderResource::getUrl('edit', ['record' => $record]));
     }
 }

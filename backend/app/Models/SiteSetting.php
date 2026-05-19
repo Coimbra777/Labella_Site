@@ -21,7 +21,11 @@ class SiteSetting extends Model
     {
         $record = self::first();
 
-        return $record?->settings ?? self::defaultSettings();
+        if ($record === null) {
+            return self::defaultSettings();
+        }
+
+        return $record->settings ?? self::defaultSettings();
     }
 
     /**

@@ -2,12 +2,19 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Dashboard;
+use App\Filament\Resources\CategoryResource;
+use App\Filament\Resources\OrderResource;
+use App\Filament\Resources\ProductResource;
+use App\Filament\Widgets\LastOrderWidget;
+use App\Filament\Widgets\OrdersPendingWidget;
+use App\Filament\Widgets\OrdersStatsOverviewWidget;
+use App\Http\Middleware\EnsureAdmin;
 use App\Http\Middleware\SetPanelLocale;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
 use Filament\Http\Middleware\DispatchServingFilamentEvent;
-use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
@@ -35,18 +42,18 @@ class AdminPanelProvider extends PanelProvider
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
-                \App\Filament\Pages\Dashboard::class,
+                Dashboard::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                \App\Filament\Widgets\OrdersStatsOverviewWidget::class,
-                \App\Filament\Widgets\LastOrderWidget::class,
-                \App\Filament\Widgets\OrdersPendingWidget::class,
+                OrdersStatsOverviewWidget::class,
+                LastOrderWidget::class,
+                OrdersPendingWidget::class,
             ])
             ->resources([
-                \App\Filament\Resources\ProductResource::class,
-                \App\Filament\Resources\CategoryResource::class,
-                \App\Filament\Resources\OrderResource::class,
+                ProductResource::class,
+                CategoryResource::class,
+                OrderResource::class,
             ])
             ->middleware([
                 SetPanelLocale::class,
@@ -62,7 +69,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                \App\Http\Middleware\EnsureAdmin::class,
+                EnsureAdmin::class,
             ]);
     }
 }

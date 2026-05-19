@@ -3,8 +3,6 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
-use App\Models\Category;
 use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -164,10 +162,12 @@ class ProductResource extends Resource
                     ->label('Imagem')
                     ->getStateUsing(function (Product $record) {
                         $images = $record->images;
-                        if (is_array($images) && !empty($images)) {
+                        if (is_array($images) && ! empty($images)) {
                             $path = $images[0];
+
                             return str_starts_with($path, 'http') ? $path : Storage::disk('public')->url($path);
                         }
+
                         return null;
                     })
                     ->circular()

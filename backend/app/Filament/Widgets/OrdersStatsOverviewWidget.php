@@ -10,7 +10,7 @@ class OrdersStatsOverviewWidget extends BaseWidget
 {
     protected static ?int $sort = 1;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected function getStats(): array
     {
@@ -33,7 +33,7 @@ class OrdersStatsOverviewWidget extends BaseWidget
                 ->descriptionIcon('heroicon-m-shopping-cart')
                 ->color('primary'),
 
-            Stat::make('Faturamento Total', 'R$ ' . number_format($faturamento, 2, ',', '.'))
+            Stat::make('Faturamento Total', 'R$ '.number_format($faturamento, 2, ',', '.'))
                 ->description('Somente pedidos pagos')
                 ->descriptionIcon('heroicon-m-currency-dollar')
                 ->color('success'),
